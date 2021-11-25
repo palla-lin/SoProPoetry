@@ -1,0 +1,129 @@
+living	6243
+social commentaries	4302
+relationships	3856
+nature	3613
+arts & sciences	3039
+love	2126
+activities	2107
+death	1547
+religion	1483
+time & brevity	1468
+history & politics	1456
+family & ancestors	1345
+the body	1336
+life choices	1190
+poetry & poets	1077
+war & conflict	1053
+animals	1036
+the mind	959
+philosophy	912
+sorrow & grieving	842
+landscapes & pastorals	834
+travels & journeys	815
+men & women	749
+desire	735
+race & ethnicity	714
+mythology & folklore	690
+realistic & complicated	665
+cities & urban life	648
+trees & flowers	628
+home life	596
+gender & sexuality	572
+seas	568
+rivers	568
+& streams	568
+disappointment & failure	520
+language & linguistics	506
+parenthood	503
+jobs & working	490
+romantic love	486
+growing old	474
+christianity	454
+god & the divine	446
+friends & enemies	443
+humor & satire	423
+health & illness	404
+reading & books	404
+the spiritual	385
+music	378
+eating & drinking	377
+marriage & companionship	377
+money & economics	376
+coming of age	362
+faith & doubt	357
+class	356
+heartache & loss	346
+popular culture	345
+infatuation & crushes	317
+weather	306
+heroes & patriotism	301
+crime & punishment	273
+break-ups & vexed love	271
+pets	268
+winter	268
+stars	265
+planets	265
+heavens	265
+painting & sculpture	259
+school & learning	245
+sports & outdoor activities	239
+greek & roman mythology	200
+summer	185
+unrequited love	162
+youth	156
+separation & divorce	148
+sciences	144
+spring	140
+fall	138
+fairy-tales & legends	127
+ghosts & the supernatural	127
+town & country life	123
+midlife	123
+classic love	123
+gay	122
+lesbian	122
+queer	122
+photography & film	114
+valentine's day	108
+theater & dance	100
+judaism	97
+indoor activities	94
+gardening	92
+architecture & design	85
+funerals	85
+horror	74
+infancy	65
+other religions	57
+anniversary	57
+first love	51
+farewells & good luck	50
+father's day	43
+weddings	39
+christmas	38
+memorial day	36
+independence day	32
+islam	32
+new year	26
+engagement	24
+halloween	23
+buddhism	21
+birthdays	20
+mother's day	20
+birth & birthdays	19
+graduation	19
+thanksgiving	18
+st. patrick's day	17
+birth	16
+gratitude & apologies	15
+kwanzaa	14
+labor day	13
+toasts & celebrations	13
+get well & recovery	12
+easter	11
+yom kippur	8
+passover	8
+september 11th	8
+hanukkah	5
+rosh hashanah	5
+ramadan	3
+cinco de mayo	1
