@@ -96,9 +96,9 @@ class Run:
         loader_test = DataLoader(dataset=test, batch_size=params.batch_size, shuffle=False)
         
         # Define optimizer and loss function
-        optimizer = optim.RMSprop(model.parameters(), lr=params.learning_rate)
-        # optimizer = optim.SGD(model.parameters(), lr=params.learning_rate)
-        # optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+        # optimizer = optim.RMSprop(model.parameters(), lr=params.learning_rate)
+        optimizer = optim.SGD(model.parameters(), lr=params.learning_rate)
+        # optimizer = optim.Adam(model.parameters(), lr=params.learning_rate)
         
         # criterion = nn.CrossEntropyLoss(reduction='sum')
         criterion = nn.BCEWithLogitsLoss()
@@ -237,6 +237,6 @@ def evaluation(model, loader_eval):
             loss = criterion(y_pred, y_batch)
             avg_loss += loss.item()
             
-    size = len(loader_eval.dataset)
+    size = len(loader_eval)
     avg_loss /= size
     return avg_loss

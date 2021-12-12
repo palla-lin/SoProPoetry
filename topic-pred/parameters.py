@@ -24,8 +24,8 @@ class Parameters:
     path: str = args.emb_f
         
     # Training parameters
-    hidden_dim: int = 256
-    n_layers: int = 5
+    hidden_dim: int = 128
+    n_layers: int = 3
     learning_rate: float = args.learning_rate
     dropout: float = args.dropout
     epochs: int = args.epochs

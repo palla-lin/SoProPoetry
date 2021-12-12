@@ -39,6 +39,7 @@ class Classify(object):
         self.model.load_state_dict(torch.load(model_path, map_location=DEVICE))
         self.predict()
     
+    
     def predict(self):
         self.model.eval()
         test =  DatasetMaper(self.data['x_test'], self.data['y_test'])
