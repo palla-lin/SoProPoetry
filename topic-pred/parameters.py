@@ -19,7 +19,7 @@ class Parameters:
     bidirectional: bool = True
     save_model: bool = args.save_model
     model_dir: str = args.model_dir
-    output_dim: int = 129
+    output_dim: int = 17
     # Path to pre-trained embeddings
     path: str = args.emb_f
         

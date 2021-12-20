@@ -60,7 +60,6 @@ class Classify(object):
                 y_pred = self.model(x_batch).cpu().detach()
                 y_pred_prob = torch.sigmoid(y_pred).cpu().detach().numpy()
                 y_pred = torch.round(torch.sigmoid(y_pred)).cpu().detach().numpy()
-                
                 predcited.extend(y_pred)
                 predcited_prob.extend(y_pred_prob)
 
@@ -73,10 +72,12 @@ class Classify(object):
         themes = []
         y_true = self.data['y_test']
         y_pred = self.predcited
+        
         with open(self.args.out_dir+'/uniq_tags.txt', 'r') as f:
             for line in f:
                 tag = line.strip().split()[0]
                 themes.append(tag)
+        themes = themes[:len(y_true[0])]
         print(classification_report(y_true, 
                                     y_pred, 
                                     digits=4,

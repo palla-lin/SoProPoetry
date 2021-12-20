@@ -8,6 +8,7 @@ def parse_arguments():
     parser.add_argument("emb_f", help="path to pre-trained embeddings")
     parser.add_argument("out_dir", help="path to save processed poems, tags")
     parser.add_argument("model_dir", help="path to save trained model")
+    parser.add_argument("-high_level_tags", default=1000, type=int, help='take tags whose freq is more than this number [default: 1000]')
     parser.add_argument("-learning_rate", default=1e-3, type=float, help='learning rate [default: 0.001]')
     parser.add_argument("-epochs", default=10, type=int, help='number of training epochs [default: 10]')
     parser.add_argument("-dropout", default=0.2, type=float, help='the probability for dropout [default: 0.25]')

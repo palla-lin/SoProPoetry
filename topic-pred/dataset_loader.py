@@ -31,21 +31,17 @@ class DataLoader(object):
         """
         self.poems = self.data["Poem"].to_numpy()
         self.tags = self.data["Tags"].fillna("").to_numpy()
-    
-    def extract_poems(self):
-        """Get all poems and save them in a text file
-        """
-        with open(self.args.out_dir+'/poems.txt', 'w') as f:
-            for poem in self.poems:
-                f.write(pre_process(poem)+'\n')
-    
-    def extract_tags(self):
-        """Get tags of all poems and save them in a text file
-        """
-        with open(self.args.out_dir+'/tags.txt', 'w') as f:
-            for tag in self.tags:
-                tag_list = pre_process_tags(tag)
-                f.write(",".join(tag_list) +'\n')
+        self.poem_tags_dict = {}
+        for id, (tags, poem) in enumerate(zip(self.tags, self.poems)):
+            if tags != '':
+                status = "lab"
+            else:
+                status = "unlab"
+            self.poem_tags_dict[id] = {
+                "tags": tags,
+                "status": status,
+                "poem": poem
+            }
     
     def get_unique_tags(self):
         """Get list of uniqe tags and save them in a file
@@ -54,7 +50,35 @@ class DataLoader(object):
             self.tag_freq = unique_tags(self.tags)
             for tag, freq in self.tag_freq.items():
                 f.write(tag+"\t"+str(freq)+"\n")
+    
+    def extract_poems_tags(self):
+        """Get all poems and tags, process them and save in text files
+        """
+        self.poems = []
+        self.labels = []
+        with open(self.args.out_dir+'/poems.txt', 'w') as fp, open(self.args.out_dir+'/tags.txt', 'w') as ft:
+            for id, tag_poem in self.poem_tags_dict.items():
+                poem = tag_poem['poem']
+                tags = tag_poem['tags']
+                proc_poem = pre_process(poem)
+                proc_tags = pre_process_tags(tags)
                 
+                self.poem_tags_dict[id]["poem"] = proc_poem
+                if tag_poem['status'] =='lab':
+                    self.poem_tags_dict[id]["tags"] = proc_tags
+                    hlt_tags = [i for i in proc_tags if self.tag_freq[i]>args.high_level_tags]
+                    if len(hlt_tags) != 0:
+                        # Self.tags will only contain list of high level tags for each poem
+                        self.labels.extend([hlt_tags])
+                        self.poem_tags_dict[id]['hlt'] = True
+                        self.poem_tags_dict[id]['high_level_tags'] = hlt_tags
+                    else:
+                        self.poem_tags_dict[id]['hlt'] = False
+                
+                fp.write(proc_poem+'\n')
+                ft.write(",".join(proc_tags) +'\n')
+                self.poems.extend([proc_poem])
+    
     def tag_mapping(self):
         """Create a tag to integer mapping.
         """
@@ -62,20 +86,6 @@ class DataLoader(object):
         with open(self.args.out_dir+'/tag2int.json', 'w') as fp:
             json.dump(self.tag2int, fp)
             
-    def encode_tags(self):
-        """Encode all tags of all poems using the mapping created above
-        """
-        self.labels_int = []
-        self.labels = []
-        with open(self.args.out_dir+'/tags.txt') as fp:
-            for line in fp:
-                tags = line.rstrip().split(",")
-                if tags[0] !='':
-                    self.labels_int.append(tuple(tag_mapper(tags, self.tag2int)))
-                    self.labels.append(tags)
-                else:
-                    self.labels_int.append(tuple([-1]))
-        
     def tokenize(self):
         """Tokenize all poems 
         """
@@ -96,20 +106,19 @@ class DataLoader(object):
     def separate_labeled_unlabeled_poems(self):
         """Self.X  has labeled and unlabeled poems. Here we separate them out.
         """
-        self.X_lab, self.X_unlab, self.y = [],[],[]
-        for i in range(len(self.labels_int)):
-            if self.labels_int[i][0] != -1:
-                self.y.append(tuple(self.labels_int[i]))
-                self.X_lab.append(self.X[i])
-            else:
-                self.X_unlab.append(self.X[i])
+        self.X_lab, self.X_unlab = [],[]
+        for id, tag_poem in self.poem_tags_dict.items():
+            if tag_poem['status'] == 'lab':
+                if tag_poem['hlt'] == True:
+                    self.X_lab.append(self.X[id])
+            elif tag_poem['status'] == 'unlab':
+                self.X_unlab.append(self.X[id])
     
     def one_hot_encoding(self):
         """Binarize labels
         """
         self.mlb = MultiLabelBinarizer()
         self.y = self.mlb.fit_transform(self.labels)
-        
 
         
     def split_data(self):

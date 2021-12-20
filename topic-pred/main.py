@@ -25,11 +25,9 @@ def prepare_data(data):
     """ purpose of my function """
     dl = DataLoader(data)
     dl.load_data()
-    dl.extract_poems()
-    dl.extract_tags()
     dl.get_unique_tags()
+    dl.extract_poems_tags()
     dl.tag_mapping()
-    dl.encode_tags()
     dl.tokenize()
     dl.build_vocabulary()
     dl.padding()
