@@ -13,13 +13,16 @@ args = parse_arguments()
 class Parameters:
     # Preprocessing parameeters
     max_seq_len: int = args.max_seq_len
+    num_words: int = 61348
 
     # Model parameters
     embedding_size: int = args.embedding_size
     bidirectional: bool = True
     save_model: bool = args.save_model
     model_dir: str = args.model_dir
-    output_dim: int = 17
+    output_dim: int = 144
+    stride: int = 2
+    out_size: int = 32
     # Path to pre-trained embeddings
     path: str = args.emb_f
         

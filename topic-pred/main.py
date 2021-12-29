@@ -11,6 +11,7 @@
 import os
 import time
 import pdb
+import pickle
 import pandas as pd
 
 from dataset_loader import DataLoader
@@ -31,7 +32,6 @@ def prepare_data(data):
     dl.tokenize()
     dl.build_vocabulary()
     dl.padding()
-    dl.separate_labeled_unlabeled_poems()
     dl.one_hot_encoding()
     dl.split_data()
     dl.save_train_test_split()
@@ -44,9 +44,12 @@ def prepare_data(data):
             'x_test': dl.X_test,
             'y_test': dl.y_test,
             'x_valid': dl.X_validation,
-            'y_valid': dl.y_validation
+            'y_valid': dl.y_validation,
+            'seq_len_train': dl.seq_len_train,
+            'seq_len_test': dl.seq_len_test,
+            'seq_len_valid': dl.seq_len_validation
         },
-        dl.t_words
+        dl.t_words, dl.lb
     )
 
 def main():
@@ -55,8 +58,8 @@ def main():
     os.makedirs(args.out_dir, exist_ok=True)
     # Prepare the data
     print("Loading dataset....")
-    data = pd.read_csv(args.csv_data,header=0)
-    data, t_words = prepare_data(data)
+    data = pickle.load(open(args.dataset_obj, 'rb'))
+    data, t_words, lb = prepare_data(data)
     print("--Done--")
 
     # Initialize the model
@@ -64,17 +67,28 @@ def main():
     model = biLSTM(t_words, Parameters)
     model.to(DEVICE)
 
-    # # Train and Evaluate the pipeline
-    Run().train(model, data, Parameters)
-    end = time.time()
-    print("*** Training Complete ***")
-    print("Training runtime: {:.2f} s".format(end-start))
-
-    # Evaluate on test data
-    clf = Classify(t_words, data, model, Parameters)
-    clf.load_model()
-    clf.predict()
-    clf.evaluate_metric()
-
+    # Train and Evaluate the pipeline
+    if not args.trained_model:
+        Run().train(model, data, Parameters)
+        end = time.time()
+        print("*** Training Complete ***")
+        print("Training runtime: {:.2f} s".format(end-start))
+        # Evaluate on test data
+        clf = Classify(t_words, data, model, lb,  Parameters)
+        clf.load_model()
+        clf.predict()
+        clf.evaluate_metric()
+        clf.print_some_samples()
+    else:
+        print("Trained model found")
+        print("Using:", args.trained_model)
+        # Evaluate on test data
+        clf = Classify(t_words, data, model, lb, Parameters)
+        clf.load_model()
+        clf.predict()
+        clf.evaluate_metric()
+        clf.print_some_samples()
+        
+        
 if __name__ == "__main__":
     main()

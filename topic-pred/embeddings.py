@@ -28,7 +28,8 @@ class Embedding(object):
         print("\nLoading pre-trained embeddings...")
         if not os.path.exists(self.args.out_dir +'/embedding_weights.npy'):
             print("Embeddings not found. Creating embedding matrix...")
-            self.word2vec = load_glove_model(self.path)
+            # self.word2vec = load_glove_model(self.path)
+            self.word2vec = KeyedVectors.load_word2vec_format(self.path)
             len_words = len(t_words.word_index) + 1
             self.embedding_weights = np.zeros((len_words, self.embedding_size))
             word2id = t_words.word_index
