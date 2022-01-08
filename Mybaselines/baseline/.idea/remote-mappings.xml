@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="python@sftp://peilulin@127.0.0.1:6000/home/CE/peilulin/miniconda3/envs/poetry/bin/python3.7" />
+      </list>
+    </list>
+  </component>
+</project>
