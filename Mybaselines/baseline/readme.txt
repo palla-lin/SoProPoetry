@@ -17,7 +17,7 @@ Note:
 The test file is not completed. Mengli is still woking on evaluation using some metrics like accuracy or BLEU, 
 so no more test scores can be reported at this moment.
 
-Welcome to add more features/better model design/suggestions on fine-tuning.
+Welcome to add more features/better model design/suggestions on fine-tuning/corrections.
 Contact me if anything.
 
 
