@@ -15,8 +15,8 @@ Current observations:
 The best validation loss(about 5.0) is still too high to use. 
 
 Note: 
-decode function in train.py use ground true, which is not correct for generation, I just use it 
-to indicate how well the trainning. But greedy_decode in test.py is correct example for generation.
+The decode function in train.py uses ground true targets, which is not correct for generation, I just use it 
+to indicate how well the trainning is. But the greedy_decode in test.py is a correct example for generation, which is mainly to show you how to restore the model.
 
 Welcome to add more features/better model design/suggestions on fine-tuning/corrections.
 Contact me if anything.
