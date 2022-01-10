@@ -23,7 +23,10 @@ optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate, betas=(0
 model.load_state_dict(model_CKPT['state_dict'])
 optimizer.load_state_dict(model_CKPT['optimizer'])
 device = torch.device('cuda')
-model = model.to(device)
+if args.parallel:
+    model = nn.DataParallel(model).to(device)
+else:
+    model = model.to(device)
 
 
 def greedy_decode(model, loader, lang):

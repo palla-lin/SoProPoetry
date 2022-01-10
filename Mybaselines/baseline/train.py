@@ -26,16 +26,16 @@ logger.add('./output/runtime.log')
 logger.info('\n\n\n-------New Record--------\n')
 if not args.wandb:
     os.environ['WANDB_MODE'] = 'offline'
-wandb.init(project="poetry", config=args.__dict__)
+wandb.init(project="poetry")
 
 if len(args.gpus.split(',')) >= 2:
-    parallel = True
+    args.parallel = True
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpus
     device = torch.device('cuda')
 else:
-    parallel = False
+    args.parallel = False
     device = torch.device('cuda')
-
+wandb.config.update(args)
 
 def train(model, optimizer, criterion, train_loader):
     model.train()
@@ -106,7 +106,7 @@ def main():
                                                                      data_size=args.data_size)
 
     model = Seq2seq(lang.n_words, hidden_size=args.hidden_size, num_layers=args.num_layers)
-    if parallel:
+    if args.parallel:
         model = nn.DataParallel(model).to(device)
     else:
         model = model.to(device)

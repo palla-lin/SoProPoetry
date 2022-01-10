@@ -1,4 +1,5 @@
 How to run this project?
+
 1. Upload the whole baseline folder to coli sever.
 2. Install the requirements.txt.
 3. Unzip the CCPC.zip
@@ -14,11 +15,8 @@ Current observations:
 The best validation loss(about 5.0) is still too high to use. 
 
 Note: 
-The test file is not completed. Mengli is still woking on evaluation using some metrics like accuracy or BLEU, 
-so no more test scores can be reported at this moment.
+decode function in train.py use ground true, which is not correct for generation, I just use it 
+to indicate how well the trainning. But greedy_decode in test.py is correct example for generation.
 
 Welcome to add more features/better model design/suggestions on fine-tuning/corrections.
 Contact me if anything.
-
-
-
