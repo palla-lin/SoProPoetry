@@ -10,23 +10,24 @@ from loader import get_data_loaders
 # from config import args
 import torch.nn.functional as F
 from loguru import logger
-
-logger.add('./output/runtime.log')
 logger.info('\n\n\n-------New Record--------\n')
 
+device = torch.device('cuda')
 path = './output/best.model'
 model_CKPT = torch.load(path)
 args = model_CKPT['args']
 lang, test_loader = get_data_loaders(('train',), batch_size=1, data_size=args.data_size, build_vocab=False)
-model = Seq2seq(vocab_size=lang.n_words, hidden_size=args.hidden_size)
-optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate, betas=(0.9, 0.98), eps=1e-9)
-model.load_state_dict(model_CKPT['state_dict'])
-optimizer.load_state_dict(model_CKPT['optimizer'])
-device = torch.device('cuda')
+model = Seq2seq(lang.n_words, hidden_size=args.hidden_size, num_layers=args.num_layers)
 if args.parallel:
     model = nn.DataParallel(model).to(device)
 else:
     model = model.to(device)
+
+optimizer = torch.optim.Adam(model.parameters(), lr=args.learning_rate, betas=(0.9, 0.98), eps=1e-9)
+model.load_state_dict(model_CKPT['state_dict'])
+optimizer.load_state_dict(model_CKPT['optimizer'])
+
+
 
 
 def greedy_decode(model, loader, lang):
@@ -36,12 +37,14 @@ def greedy_decode(model, loader, lang):
             src = src.to(device)
             tgt = tgt.to(device)
             placeholder = placeholder.to(device)
-            enc_output, hidden = model.encoder(src)
+            # enc_output, hidden = model.encoder(src)
             sentence = []
             dec_input = tgt[:, 0].unsqueeze(1)  # <bos>
             for i in range(0, placeholder.size(1)):
                 # dec_input = tgt[:, i]
-                out, hidden = model.decoder(dec_input, placeholder[:, i].unsqueeze(1), hidden, enc_output)
+                # out, hidden = model.decoder(dec_input, placeholder[:, i].unsqueeze(1), hidden, enc_output)
+              
+                out = model(src, dec_input, placeholder[:, i].unsqueeze(0))
                 out = F.softmax(out, dim=2)
                 pred = torch.argmax(out, dim=2)
                 dec_input = pred
