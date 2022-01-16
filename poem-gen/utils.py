@@ -12,7 +12,7 @@ import wandb
 import numpy as np
 import time
 import datetime
-
+import glob
 
 import torch
 import torch.optim as optim
@@ -39,9 +39,6 @@ class Run(object):
 
     @staticmethod
     def train(tokenizer, train_dataloader, val_dataloader, params):
-        prompt = "<BOS>"
-        generated = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0)
-        generated = generated.to(DEVICE)
 
         configuration = GPT2Config(vocab_size=len(
             tokenizer), n_positions=params.MAX_LEN).from_pretrained('gpt2', output_hidden_states=True)
@@ -112,3 +109,63 @@ class Run(object):
 
         print(f'Total Training Time: {format_time(time.time()-start_time)}')
         torch.save(model.state_dict(), params.out_dir + '/model.pth')
+
+class ConditionalGenerate():
+    
+    @staticmethod
+    def generate(model, tokenizer, params):
+        prompt = "<BOS>"
+        generated = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0)
+        generated = generated.to(DEVICE)
+        
+        # Load trained model
+        configuration = GPT2Config(vocab_size=len(
+            tokenizer), n_positions=params.MAX_LEN).from_pretrained('gpt2', output_hidden_states=True)
+        
+        model = GPT2LMHeadModel.from_pretrained('gpt2', config=configuration)
+        model.resize_token_embeddings(len(tokenizer))
+        model.cuda()
+        model_path = glob.glob(params.model_dir + "/*.pth")[0]
+        model.load_state_dict(torch.load(model_path, map_location=DEVICE))
+        
+        model.eval()
+        sample_outputs = model.generate(
+                                        generated, 
+                                        do_sample=True,   
+                                        top_k=50, 
+                                        max_length=params.MAX_LEN,
+                                        top_p=0.95, 
+                                        num_return_sequences=3
+                                        )
+
+        for i, sample_output in enumerate(sample_outputs):
+            print("{}: {}\n\n".format(i, tokenizer.decode(sample_output, skip_special_tokens=True)))
+
+
+
+
+# Epoch 1 of 8
+# Average Training Loss: 0.7812812092233021. Epoch Training Time: 0:22:19
+# Average Validation Loss: 0.6985488197560817
+# Epoch 2 of 8
+# Average Training Loss: 0.6781221078296606. Epoch Training Time: 0:22:16
+# Average Validation Loss: 0.689365719777143
+# Epoch 3 of 8
+# Average Training Loss: 0.6411326588424874. Epoch Training Time: 0:22:17
+# Average Validation Loss: 0.691284994184711
+# Epoch 4 of 8
+# Average Training Loss: 0.6063146302462313. Epoch Training Time: 0:22:17
+# Average Validation Loss: 0.6916554246386862
+# Epoch 5 of 8
+# Average Training Loss: 0.5756404871595745. Epoch Training Time: 0:22:17
+# Average Validation Loss: 0.6962963547866139
+# Epoch 6 of 8
+# Average Training Loss: 0.5487534548329559. Epoch Training Time: 0:22:17
+# Average Validation Loss: 0.7036655368811168
+# Epoch 7 of 8
+# Average Training Loss: 0.526841444655496. Epoch Training Time: 0:22:17
+# Average Validation Loss: 0.7126045300907016
+# Epoch 8 of 8
+# Average Training Loss: 0.50854119013143. Epoch Training Time: 0:22:18
+# Average Validation Loss: 0.7196817226584517
+# Total Training Time: 3:12:19

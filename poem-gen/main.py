@@ -15,7 +15,7 @@ import pdb
 import pickle
 
 from dataset_loader import MyDataLoader
-from utils import Run, DEVICE
+from utils import Run, DEVICE, ConditionalGenerate
 from parameters import Parameters as params
 
 
@@ -41,7 +41,10 @@ def main():
     print("--Done--")
     
     # Train model
-    Run().train(tokenizer, train_dataloader, val_dataloader, params)
+    # Run().train(tokenizer, train_dataloader, val_dataloader, params)
+    
+    print("\nGenerating poems...")
+    ConditionalGenerate().generate(tokenizer, params)
     
 
 if __name__ == "__main__":
