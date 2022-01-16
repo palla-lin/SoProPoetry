@@ -42,8 +42,7 @@ def main():
     
     # Train model
     # Run().train(tokenizer, train_dataloader, val_dataloader, params)
-    
-    print("\nGenerating poems...")
+    print("\nGenerating poems....")
     ConditionalGenerate().generate(tokenizer, params)
     
 
