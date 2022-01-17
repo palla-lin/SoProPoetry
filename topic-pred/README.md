@@ -59,14 +59,12 @@ Poetry foundation dataset. [LINK](https://www.kaggle.com/tgdivy/poetry-foundatio
 
     ```
 - Training and Evaluation
-    - use only high level tags: `"love", "nature", "life", "romantic", "freedom", "culture", "suicide"`
+    - use only high level tags: ``
     ```
     python main.py ../data/neural-poet/poem_dict.obj ../fasttext/wiki-news-300d-1M-subword.vec data/NeuralPoet/ cnn -high_level_tags True -epochs 50
     ```
-    - use all 144 tags
-    ```
-    python main.py poem_dict.obj ../fasttext/wiki-news-300d-1M-subword.vec data/NeuralPoet/ cnn
-    ```
 ## Results
-Results can be found under `train_logs.txt`
+Evalation results can be found under `train_logs.txt`. Further training performance can be found:
+- All tags: [WANDB-Poem Topic Classificaton](https://wandb.ai/sangeet2020/Poem%20topic%20classification/runs/3ub7b9m4?workspace=user-sangeet2020)
+- High level tags: [WANDB: HLT tags](https://wandb.ai/sangeet2020/[HLT]%20Poem%20topic%20classification/runs/ll9fjr0k/overview?workspace=user-sangeet2020)
 
