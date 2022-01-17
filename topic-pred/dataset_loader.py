@@ -5,11 +5,11 @@
 # @Date:  Sun 05 Dec 2021 08:59:31 PM CET
 
 
-import json
+import json 
 import numpy as np
 import pickle
 import random
-random.seed(123)
+random.seed(111)
 
 from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
@@ -27,6 +27,7 @@ class DataLoader(object):
         super().__init__()
         self.data = data
         self.args = parse_arguments()
+        self.hl_tags = ["love", "nature", "life", "romantic", "freedom", "culture", "suicide"]
     
     def load_data(self):
         """Load raw poems and its tags
@@ -59,11 +60,19 @@ class DataLoader(object):
                     "stanza_len": stanza_len
                 }
         
+        # Pickle dataset for further usage
+        dataset_path = os.path.dirname(args.dataset_obj) + '/cleaned_poem_tags_dict.pkl'
+        with open(dataset_path, 'wb') as f:
+            pickle.dump(self.poem_tags_dict, f)
+        
     def get_unique_tags(self):
         """Get list of uniqe tags and save them in a file
         """
         with open(self.args.out_dir+'/uniq_tags.txt', 'w') as f:
-            self.tag_freq = unique_tags(self.tags)
+            if args.high_level_tags:
+                self.tag_freq = unique_tags(self.tags, self.hl_tags)
+            else:
+                self.tag_freq = unique_tags(self.tags)
             for tag, freq in self.tag_freq.items():
                 f.write(tag+"\t"+str(freq)+"\n")
     
@@ -78,14 +87,25 @@ class DataLoader(object):
                 poem = tag_poem['poem']
                 tags = tag_poem['tags']
                 stanza_len = tag_poem['stanza_len']
-                proc_poem = pre_process(poem)
-                
-                self.poem_tags_dict[id]["poem"] = proc_poem
-                fp.write(" ".join(proc_poem)+'\n')
-                ft.write(tags +'\n')
-                self.poems.extend([proc_poem])
-                self.labels.extend([tags])
-                self.stanza_len.append(stanza_len)
+                if args.high_level_tags:
+                    for i in self.hl_tags:
+                        if i== tags:
+                            proc_poem = pre_process(poem)
+                            self.poem_tags_dict[id]["poem"] = proc_poem
+                            fp.write(" ".join(proc_poem)+'\n')
+                            ft.write(tags +'\n')
+                            self.poems.extend([proc_poem])
+                            self.labels.extend([tags])
+                            self.stanza_len.append(stanza_len)
+                    
+                else:
+                    proc_poem = pre_process(poem)
+                    self.poem_tags_dict[id]["poem"] = proc_poem
+                    fp.write(" ".join(proc_poem)+'\n')
+                    ft.write(tags +'\n')
+                    self.poems.extend([proc_poem])
+                    self.labels.extend([tags])
+                    self.stanza_len.append(stanza_len)
     
     def tag_mapping(self):
         """Create a tag to integer mapping.

@@ -20,14 +20,18 @@ class Parameters:
     bidirectional: bool = True
     save_model: bool = args.save_model
     model_dir: str = args.model_dir
-    output_dim: int = 144
-    stride: int = 2
+    if args.high_level_tags:
+        output_dim: int = 7
+    else:  
+        output_dim: int = 144
+    stride: int = 3
     out_size: int = 32
+    
     # Path to pre-trained embeddings
     path: str = args.emb_f
         
     # Training parameters
-    hidden_dim: int = 128
+    hidden_dim: int = 256
     n_layers: int = 3
     learning_rate: float = args.learning_rate
     dropout: float = args.dropout
