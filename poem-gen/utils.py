@@ -153,28 +153,4 @@ class ConditionalGenerate():
 
 
 
-# Epoch 1 of 8
-# Average Training Loss: 0.7812812092233021. Epoch Training Time: 0:22:19
-# Average Validation Loss: 0.6985488197560817
-# Epoch 2 of 8
-# Average Training Loss: 0.6781221078296606. Epoch Training Time: 0:22:16
-# Average Validation Loss: 0.689365719777143
-# Epoch 3 of 8
-# Average Training Loss: 0.6411326588424874. Epoch Training Time: 0:22:17
-# Average Validation Loss: 0.691284994184711
-# Epoch 4 of 8
-# Average Training Loss: 0.6063146302462313. Epoch Training Time: 0:22:17
-# Average Validation Loss: 0.6916554246386862
-# Epoch 5 of 8
-# Average Training Loss: 0.5756404871595745. Epoch Training Time: 0:22:17
-# Average Validation Loss: 0.6962963547866139
-# Epoch 6 of 8
-# Average Training Loss: 0.5487534548329559. Epoch Training Time: 0:22:17
-# Average Validation Loss: 0.7036655368811168
-# Epoch 7 of 8
-# Average Training Loss: 0.526841444655496. Epoch Training Time: 0:22:17
-# Average Validation Loss: 0.7126045300907016
-# Epoch 8 of 8
-# Average Training Loss: 0.50854119013143. Epoch Training Time: 0:22:18
-# Average Validation Loss: 0.7196817226584517
-# Total Training Time: 3:12:19
+
