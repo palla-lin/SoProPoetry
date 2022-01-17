@@ -3,6 +3,7 @@ import operator
 import time
 import os
 import pdb
+import wandb
 import numpy as np
 from nltk.tokenize import word_tokenize
 
@@ -64,17 +65,25 @@ def pre_process_tags(tags):
     tags = [x.strip() for x in tags]
     return tags
 
-def unique_tags(tags):
+def unique_tags(tags, hl_tags=None):
     tag_freq = {}
     for tag in list(tags):
         items = tag
         for item in items:
             item = item.lower().strip()
-            if item in tag_freq:
-                tag_freq[item] += 1
+            if hl_tags:
+                if item in hl_tags:        
+                    if item in tag_freq:
+                        tag_freq[item] += 1
+                    else:
+                        if item !="":
+                            tag_freq[item] = 1
             else:
-                if item !="":
-                    tag_freq[item] = 1
+                if item in tag_freq:
+                    tag_freq[item] += 1
+                else:
+                    if item !="":
+                        tag_freq[item] = 1
     
     return dict(sorted(tag_freq.items(),key=operator.itemgetter(1),reverse=True))
 
@@ -134,12 +143,12 @@ class Run:
         loader_test = DataLoader(dataset=test, batch_size=params.batch_size, shuffle=False)
         
         # Define optimizer and loss function
-        # optimizer = optim.RMSprop(model.parameters(), lr=params.learning_rate)
+        optimizer = optim.RMSprop(model.parameters(), lr=params.learning_rate)
         # optimizer = optim.SGD(model.parameters(), lr=params.learning_rate)
-        optimizer = optim.Adam(model.parameters(), lr=params.learning_rate)
+        # optimizer = optim.Adam(model.parameters(), lr=params.learning_rate)
         
+        # criterion = nn.CrossEntropyLoss(reduction='sum')
         criterion = nn.CrossEntropyLoss(reduction='sum')
-        # criterion = nn.CrossEntropyLoss(reduction='none')
         # criterion = nn.BCEWithLogitsLoss()
 
         # Tracking best validation accuracy
@@ -156,6 +165,19 @@ class Run:
         fscore_train = []
         fscore_test = []
         torch_F1 = torchmetrics.F1(num_classes=params.output_dim, average="micro")
+        if args.high_level_tags:
+            wandb.init(project="[HLT] Poem topic classification")    
+        else:
+            wandb.init(project="Poem topic classification")
+        
+        # Wand Configuration update
+        wandb.config.epochs = params.epochs
+        wandb.config.output_dim = params.output_dim
+        wandb.config.stride = params.stride
+        wandb.config.out_size = params.out_size
+        wandb.config.hidden_dim = params.hidden_dim
+        wandb.config.n_layers = params.n_layers
+        wandb.config.update(args)
         
         for epoch in range(params.epochs):
             # =======================================
@@ -237,6 +259,15 @@ class Run:
             # Print performance over the entire training data
             time_elapsed = time.time() - t0_epoch
             print(f"{epoch + 1:^7} | {train_accuracy:^10.2f} | {f1_train:^10.4f} | {val_loss:^10.3f} | {val_accuracy:^9.2f} | {test_accuracy:^9.2f} | {f1_test:^10.4f} | {time_elapsed:^9.2f}")
+            wandb.log({'train_acc': train_accuracy, 
+                   'train_loss': avg_train_loss,
+                   'val_acc': val_accuracy,
+                   'val_loss': val_loss,
+                   'test_acc': test_accuracy,
+                   'f1_train': f1_train,
+                   'f1_val': f1_val,
+                   'f1_test': f1_test
+                   })
             
             
         print("\n")
@@ -248,6 +279,7 @@ class Run:
             torch.save(model.state_dict(), PATH)
         
         print("Best model saved as: ", PATH)
+        
         return train_loss_list, val_loss_list, test_acc_list, fscore_train, fscore_test, PATH
     
 def batch_accuracy(y_pred, y_batch):
