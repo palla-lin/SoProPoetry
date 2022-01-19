@@ -1,9 +1,7 @@
-from dataclasses import dataclass
-import json
-
 from torch.utils.data import Dataset
 
 from utils.strings import ENG_CORPUS_PATH, SOP, EOP, EOL, PAD, UNK
+from utils.util import read_file
 
 
 class EnglishPoetryDataset(Dataset):
@@ -11,9 +9,7 @@ class EnglishPoetryDataset(Dataset):
     def __init__(self, input_size=10, output_size=100):
         self.input_size = input_size
         self.output_size = output_size
-
-        with open(f"{ENG_CORPUS_PATH}", 'r') as json_file:
-            self.corpus = json.load(json_file)
+        self.corpus = read_file(ENG_CORPUS_PATH)
         self.num_examples = len(self.corpus)
 
         self._init_vocab()

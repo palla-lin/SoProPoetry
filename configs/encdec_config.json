@@ -1,0 +1,10 @@
+{
+    "batch_size": 5,
+    "context_size": 5,
+    "poem_size": 100,
+    "vocab_size": 20000,
+    "embed_size": 126,
+    "hidden_size": 200,
+    "num_layers": 1,
+    "dropout": 0.0
+}
