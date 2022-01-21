@@ -36,8 +36,7 @@ class EncoderDecoder(nn.Module):
                                    config["vocab_size"])
 
     def forward(self, context, target_seq):
-        context_embed = self.embed(context).transpose(0, 1)
-        encoder_hidden, encoder_final = self.encoder(context_embed)
+        encoder_hidden, encoder_final = self.encode(context)
 
         target_seq_embed = self.embed(target_seq)
         
@@ -53,13 +52,16 @@ class EncoderDecoder(nn.Module):
             decoder_states.append(decoder_hidden)
             pre_output_vectors.append(pre_output)
 
-            break
-
         decoder_states = torch.cat(decoder_states, dim=1)
         pre_output_vectors = torch.cat(pre_output_vectors, dim=1)
 
         return decoder_states, decoder_hidden, pre_output_vectors
 
+    def encode(self, context):
+        return self.encoder(self.embed(context).transpose(0, 1))
+
+    def decode(self, prev_token, encoder_hidden, decoder_hidden):
+        return self.decoder(self.embed(prev_token), encoder_hidden, decoder_hidden)
 
 class Encoder(nn.Module):
     
