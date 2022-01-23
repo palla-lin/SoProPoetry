@@ -1,0 +1,130 @@
+-------New Record--------
+
+train:54863
+read lang from:./output/lang.pkl
+vocab_size:6605
+
+
+Decoding strategy: greedy decoding
+2022-01-23 16:12:24.177 | INFO     | __main__:greedy_decode:93 - keywords:菊荒秋篱寿酒
+2022-01-23 16:12:24.178 | INFO     | __main__:greedy_decode:100 - pred:菊荒秋篱菊|霜寿菊篱黄|寿酒杯酒酒|寿杯酒菊花
+
+2022-01-23 16:12:24.289 | INFO     | __main__:greedy_decode:93 - keywords:大家未央东北驰道
+2022-01-23 16:12:24.289 | INFO     | __main__:greedy_decode:100 - pred:东北驰道大家家|未央宫里两相催|大家有意皆驰道|驰道先生一夜香
+
+2022-01-23 16:12:24.399 | INFO     | __main__:greedy_decode:93 - keywords:胸中本督邮尘埃
+2022-01-23 16:12:24.399 | INFO     | __main__:greedy_decode:100 - pred:胸中本自无尘埃|底事尘埃不可怜|尽日尘埃无尽意|不知身是督邮人
+
+2022-01-23 16:12:24.472 | INFO     | __main__:greedy_decode:93 - keywords:护辟谷萌芽浑疑
+2022-01-23 16:12:24.472 | INFO     | __main__:greedy_decode:100 - pred:辟谷浑疑浑不疑|浑疑浑似护萌芽|浑疑辟谷浑无事|
+
+2022-01-23 16:12:24.544 | INFO     | __main__:greedy_decode:93 - keywords:幽人放船持竿溪头
+2022-01-23 16:12:24.544 | INFO     | __main__:greedy_decode:100 - pred:幽人持竿去|持竿放船归|溪头鲈鱼子|持竿放船行
+
+2022-01-23 16:12:24.617 | INFO     | __main__:greedy_decode:93 - keywords:横海渺渺波陶朱
+2022-01-23 16:12:24.617 | INFO     | __main__:greedy_decode:100 - pred:渺渺波流海渺波|朱朱横海涌波浮|何人不用陶朱处|
+
+2022-01-23 16:12:24.690 | INFO     | __main__:greedy_decode:93 - keywords:炎天天下汉席
+2022-01-23 16:12:24.690 | INFO     | __main__:greedy_decode:100 - pred:炎天汉席席|席上汉席席|炎天不可见|汉席席炎天
+
+2022-01-23 16:12:24.766 | INFO     | __main__:greedy_decode:93 - keywords:雨馀游丝风起芳草
+2022-01-23 16:12:24.766 | INFO     | __main__:greedy_decode:100 - pred:雨馀芳草绿烟浓|风起游丝不断群|芳草游丝无限意|
+
+2022-01-23 16:12:24.876 | INFO     | __main__:greedy_decode:93 - keywords:罗浮长忆野人玉色
+2022-01-23 16:12:24.876 | INFO     | __main__:greedy_decode:100 - pred:长忆野人玉色寒|罗浮玉色映罗浮|罗浮不忆罗浮色|一洗罗浮玉色醪
+
+2022-01-23 16:12:24.949 | INFO     | __main__:greedy_decode:93 - keywords:闲门点检东君本
+2022-01-23 16:12:24.949 | INFO     | __main__:greedy_decode:100 - pred:点检闲门检点检|东君本是检官私|检书本是无心事|
+
+2022-01-23 16:12:25.024 | INFO     | __main__:greedy_decode:93 - keywords:潇湘挥手丹成广文
+2022-01-23 16:12:25.024 | INFO     | __main__:greedy_decode:100 - pred:潇湘一片云|挥手谢挥手|何处有丹成|丹成郑广文
+
+2022-01-23 16:12:25.099 | INFO     | __main__:greedy_decode:93 - keywords:小鱼钓投竿终日
+2022-01-23 16:12:25.099 | INFO     | __main__:greedy_decode:100 - pred:钓竿终日钓竿竿|投竿投竿坐钓竿|投竿投竿投竿坐|
+
+2022-01-23 16:12:25.172 | INFO     | __main__:greedy_decode:93 - keywords:黄茅村红叶阮籍
+2022-01-23 16:12:25.172 | INFO     | __main__:greedy_decode:100 - pred:红叶黄茅村|村村酒一杯|不嫌阮籍阮|且作阮郎归
+
+2022-01-23 16:12:25.284 | INFO     | __main__:greedy_decode:93 - keywords:白日黄花黄金遥忆
+2022-01-23 16:12:25.284 | INFO     | __main__:greedy_decode:100 - pred:黄金台上白日长|遥忆黄花忆故乡|遥忆故园情白日|九原遥忆故人情
+
+2022-01-23 16:12:25.396 | INFO     | __main__:greedy_decode:93 - keywords:瑶池丹砂东风绿阴
+2022-01-23 16:12:25.396 | INFO     | __main__:greedy_decode:100 - pred:瑶池东风吹绿阴|丹砂霞觞照瑶池|何时再得丹砂事|不见丹砂换玉砂
+
+2022-01-23 16:12:25.509 | INFO     | __main__:greedy_decode:93 - keywords:湖山江潮去路绳床
+2022-01-23 16:12:25.509 | INFO     | __main__:greedy_decode:100 - pred:绳床一枕湖山梦|两岸湖山去路遥|两岸绳床空自去|不知身在浙江潮
+
+2022-01-23 16:12:25.622 | INFO     | __main__:greedy_decode:93 - keywords:香云峥嵘客思菊花
+2022-01-23 16:12:25.622 | INFO     | __main__:greedy_decode:100 - pred:峥嵘峥嵘上云端|客思浑无一夜思|客思满身香云冷|峥嵘峥嵘菊花香
+
+2022-01-23 16:12:25.696 | INFO     | __main__:greedy_decode:93 - keywords:乾坤结社荒芜闻道
+2022-01-23 16:12:25.696 | INFO     | __main__:greedy_decode:100 - pred:结社荒芜尽|乾坤一径深|乾坤今日社|闻道不胜春
+
+2022-01-23 16:12:25.806 | INFO     | __main__:greedy_decode:93 - keywords:舟行夕阳潺潺杜鹃
+2022-01-23 16:12:25.806 | INFO     | __main__:greedy_decode:100 - pred:水潺潺潺泻碧湾|舟行行夕夕阳西|杜鹃不觉江南路|浪得舟行两岸声
+
+2022-01-23 16:12:25.881 | INFO     | __main__:greedy_decode:93 - keywords:南风青春满城留春
+2022-01-23 16:12:25.881 | INFO     | __main__:greedy_decode:100 - pred:青春满城花|春尽留春计|留春不可留|南风吹绿满
+
+2022-01-23 16:12:25.990 | INFO     | __main__:greedy_decode:93 - keywords:物外标格钧天椒浆
+2022-01-23 16:12:25.990 | INFO     | __main__:greedy_decode:100 - pred:卉醴陀陀物外新|椒浆犹有醴浆椒|使君物外钧天椒|犹有钧天一样香
+
+2022-01-23 16:12:26.063 | INFO     | __main__:greedy_decode:93 - keywords:木杪微阳稻粱孤鸟
+2022-01-23 16:12:26.063 | INFO     | __main__:greedy_decode:100 - pred:微阳木杪杪|孤鸟下墟墟|稻粱不可避|鹳鹤稻粱生
+
+2022-01-23 16:12:26.172 | INFO     | __main__:greedy_decode:93 - keywords:花草风流重重春风
+2022-01-23 16:12:26.172 | INFO     | __main__:greedy_decode:100 - pred:春风花草锦重重|花草重重锦帐开|花草锦囊重重见|阿谁能得几时来
+
+2022-01-23 16:12:26.245 | INFO     | __main__:greedy_decode:93 - keywords:颍川静听洗耳天籁
+2022-01-23 16:12:26.245 | INFO     | __main__:greedy_decode:100 - pred:静听鸣声动|川原静颍川|静听天籁响|何必问天籁
+
+2022-01-23 16:12:26.317 | INFO     | __main__:greedy_decode:93 - keywords:青青硕果岷峨霜雪
+2022-01-23 16:12:26.317 | INFO     | __main__:greedy_decode:100 - pred:硕果岷峨硕|岷峨岷峨岷|不知硕果熟|不作雪中看
+
+2022-01-23 16:12:26.389 | INFO     | __main__:greedy_decode:93 - keywords:思归我老去支颐
+2022-01-23 16:12:26.389 | INFO     | __main__:greedy_decode:100 - pred:我老思归我|支颐亦可怜|支颐一笑坐|不觉上林枝
+
+2022-01-23 16:12:26.461 | INFO     | __main__:greedy_decode:93 - keywords:婴儿进退结谁知
+2022-01-23 16:12:26.461 | INFO     | __main__:greedy_decode:100 - pred:结成相对坐|谁知进退之|儿时进退士|相对两婴儿
+
+
+Decoding strategy: topk
+
+2022-01-23 16:40:57.234 | INFO     | __main__:top_k:136 - keywords:明珠云雨失蛟龙
+2022-01-23 16:40:57.234 | INFO     | __main__:top_k:143 - pred:蛟龙带雨失明珠|云雨连天失翠珠|欲往蛟龙观海鲤|南风失侣失蛟龙
+
+2022-01-23 16:40:57.314 | INFO     | __main__:top_k:136 - keywords:花发赤子鲛人春归
+2022-01-23 16:40:57.315 | INFO     | __main__:top_k:143 - pred:春归花发泣春归|花发鲛绡赤子红|赤子鲛人同病泪|
+
+2022-01-23 16:40:57.433 | INFO     | __main__:top_k:136 - keywords:花草春阴燕子极目
+2022-01-23 16:40:57.433 | INFO     | __main__:top_k:143 - pred:极目春阴草草生|燕子花草生花草|极目又将双燕子|莫教燕子在人间
+
+2022-01-23 16:40:57.512 | INFO     | __main__:top_k:136 - keywords:老聃玄妙泾渭器
+2022-01-23 16:40:57.512 | INFO     | __main__:top_k:143 - pred:谁是传玄妙|聃聃爱此心|只有薰莸画|呼吸上丹青
+
+2022-01-23 16:40:57.630 | INFO     | __main__:top_k:136 - keywords:别离君王面面春风
+2022-01-23 16:40:57.630 | INFO     | __main__:top_k:143 - pred:马上相传面度妆|春风面面别离愁|君王自有相如在|不改君王不暂停
+
+2022-01-23 16:40:57.709 | INFO     | __main__:top_k:136 - keywords:瀑布喷薄飞龙银潢
+2022-01-23 16:40:57.710 | INFO     | __main__:top_k:143 - pred:瀑布喷喷急|瀑布挂玉环|何能飞下月|何用射飞龙
+
+2022-01-23 16:40:57.789 | INFO     | __main__:top_k:136 - keywords:霜夕阳袅袅枯荷
+2022-01-23 16:40:57.789 | INFO     | __main__:top_k:143 - pred:袅袅枯荷夕|枯荷枯枯荷|水田袅袅起|枯荷夕阳边
+
+2022-01-23 16:40:57.908 | INFO     | __main__:top_k:136 - keywords:衔杯芦花乱山行人
+2022-01-23 16:40:57.908 | INFO     | __main__:top_k:143 - pred:芦花日日不相关|衔杯行人住世间|坐睡初愁入眼看|故山衔杯待衔杯
+
+2022-01-23 16:40:57.987 | INFO     | __main__:top_k:136 - keywords:黄花沉吟昔人武陵
+2022-01-23 16:40:57.987 | INFO     | __main__:top_k:143 - pred:水沉深处是天津|昔人浑家武陵溪|武陵万顷都无世|
+
+2022-01-23 16:40:58.104 | INFO     | __main__:top_k:136 - keywords:衣裳天孙纷纷银潢
+2022-01-23 16:40:58.104 | INFO     | __main__:top_k:143 - pred:天孙巧拙旧衣裳|银潢纷纷巧笑装|今见银潢无分事|付衣裳染衣煤风
+
+2022-01-23 16:40:58.182 | INFO     | __main__:top_k:136 - keywords:孤舟江干春水南天
+2022-01-23 16:40:58.183 | INFO     | __main__:top_k:143 - pred:楚天春水正如烟|雁字江干两岸青|雁岭南天最上去|
+
+2022-01-23 16:40:58.302 | INFO     | __main__:top_k:136 - keywords:珍重风月平分新句
+2022-01-23 16:40:58.302 | INFO     | __main__:top_k:143 - pred:千年风月下平分|雪后平分新句章|珍重一杯新句句|每携壶语话平分
+
+2022-01-23 16:40:58.381 | INFO     | __main__:top_k:136 - keywords:山水江西饱看剑戟
+2022-01-23 16:40:58.382 | INFO     | __main__:top_k:143 - pred:方戟才一饱|随风即江西|人作千年意|任教剑戟心
