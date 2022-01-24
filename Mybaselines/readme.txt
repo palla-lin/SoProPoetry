@@ -1,1 +1,2 @@
 Please use the latest code file from baseline2. As for how to run, similar to baseline1.
+you can also download the pretrained model from our project folder in google drive and run the test file directly.
