@@ -6,10 +6,10 @@ from utils.util import read_file
 
 class EnglishPoetryDataset(Dataset):
 
-    def __init__(self, input_size=10, output_size=100):
+    def __init__(self, data_path, input_size=10, output_size=100):
         self.input_size = input_size
         self.output_size = output_size
-        self.corpus = read_file(ENG_CORPUS_PATH)
+        self.corpus = read_file(data_path)
         self.num_examples = len(self.corpus)
 
         self._init_vocab()
@@ -26,13 +26,14 @@ class EnglishPoetryDataset(Dataset):
         return self.num_examples
 
     def _init_vocab(self):
+        full_corpus = read_file(ENG_CORPUS_PATH)
         token_id = 5
 
         self.vocab = {SOP, EOP, EOL, PAD, UNK}
         self.token_to_id = {SOP: 0, EOP: 1, EOL: 2, PAD: 3, UNK: 4}
         self.id_to_token = {0: SOP, EOP: 1, EOL: 2, PAD: 3, UNK: 4}
 
-        for instance in self.corpus.values():
+        for instance in full_corpus.values():
             tokens = instance["keywords"] + instance["example"]
 
             for token in tokens:

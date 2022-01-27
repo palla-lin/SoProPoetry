@@ -7,11 +7,11 @@ from torch.utils.data import DataLoader
 
 from data_loaders.eng_dataset import EnglishPoetryDataset
 from models.encoder_decoder import EncoderDecoder
-from utils.strings import CONFIG_PATH, PAD
+from utils.strings import CONFIG_PATH, PAD, ENG_TRAIN_PATH, ENG_VALID_PATH
 from utils.util import read_file, SimpleLossCompute, plot_perplexity, set_seed
 
 
-def run_epoch(model, dataset, batch_size, loss_compute, print_schedule=10):
+def run_epoch(model, dataset, batch_size, loss_compute, print_schedule):
     data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
     start = time.time()
@@ -41,27 +41,28 @@ def run_epoch(model, dataset, batch_size, loss_compute, print_schedule=10):
     return math.exp(total_loss / float(total_tokens))
 
 
-def train(dataset, config, print_schedule=10):
+def train(config, print_schedule=100):
+    set_seed(config["seed"])
     num_epochs = config["num_epochs"]
     lr = config["lr"]
 
-    set_seed(config["seed"])
+    train_set = EnglishPoetryDataset(ENG_TRAIN_PATH, config["context_size"], config["poem_size"])
+    valid_set = EnglishPoetryDataset(ENG_VALID_PATH, config["context_size"], config["poem_size"])
 
     model = EncoderDecoder(config)
     if config["use_cuda"]:
         model.cuda()
 
-    criterion = nn.NLLLoss(reduction="sum", ignore_index=dataset.get_token_id(PAD))
+    criterion = nn.NLLLoss(reduction="sum", ignore_index=train_set.get_token_id(PAD))
     optim = torch.optim.Adam(model.parameters(), lr=lr)
     
     dev_perplexities = []
-
     for epoch in range(num_epochs):
       
         print("Epoch", epoch)
         model.train()
         run_epoch(model,
-                  dataset,
+                  train_set,
                   config["batch_size"],
                   SimpleLossCompute(model.generator, criterion, optim),
                   print_schedule)
@@ -69,9 +70,10 @@ def train(dataset, config, print_schedule=10):
         model.eval()
         with torch.no_grad():      
             dev_perplexity = run_epoch(model,
-                                       dataset,
+                                       valid_set,
                                        config["batch_size"], 
-                                       SimpleLossCompute(model.generator, criterion, None))
+                                       SimpleLossCompute(model.generator, criterion, None),
+                                       print_schedule)
             print("Validation perplexity: %f" % dev_perplexity)
             dev_perplexities.append(dev_perplexity)
         
@@ -81,8 +83,6 @@ def train(dataset, config, print_schedule=10):
 if __name__ == "__main__":
     model_config = read_file(CONFIG_PATH)
 
-    dataset = EnglishPoetryDataset(model_config["context_size"], model_config["poem_size"])
-
-    dev_perplexities = train(dataset, model_config)
+    dev_perplexities = train(model_config)
 
     plot_perplexity(dev_perplexities)
