@@ -1,17 +1,17 @@
 {
     "seed": 23,
     "use_cuda": true,
-    "batch_size": 3,
+    "batch_size": 16,
     "context_size": 5,
     "poem_size": 100,
-    "vocab_size": 60000,
+    "vocab_size": 30000,
     "embed_size": 126,
-    "hidden_size": 4,
+    "hidden_size": 256,
     "bidirectional": true,
-    "num_layers": 1,
-    "dropout": 0.0,
+    "num_layers": 2,
+    "dropout": 0.2,
     "add_attention": false,
     "max_output_len": 100,
-    "num_epochs": 10,
-    "lr": 0.0003
+    "num_epochs": 1,
+    "lr": 0.001
 }

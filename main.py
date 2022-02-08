@@ -8,11 +8,11 @@ from torch.utils.data import DataLoader
 from data_loaders.eng_dataset import EnglishPoetryDataset
 from models.encoder_decoder import EncoderDecoder
 from utils.strings import CONFIG_PATH, PAD, ENG_TRAIN_PATH, ENG_VALID_PATH
-from utils.util import read_file, SimpleLossCompute, plot_perplexity, set_seed
+from utils.util import read_file, SimpleLossCompute, plot_perplexity, set_seed, pad_and_sort_batch
 
 
 def run_epoch(model, dataset, batch_size, loss_compute, print_schedule):
-    data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True, collate_fn=pad_and_sort_batch)
 
     start = time.time()
     total_tokens = 0
@@ -20,8 +20,8 @@ def run_epoch(model, dataset, batch_size, loss_compute, print_schedule):
     print_tokens = 0
 
     for index, batch in enumerate(data_loader, 1):
-        contexts = torch.stack(batch[0]).cuda()
-        poems = torch.stack(batch[1]).cuda()
+        contexts = batch[0].cuda()
+        poems = batch[1].cuda()
         num_tokens = (poems != dataset.get_token_id(PAD)).data.sum().item()
 
         _, _, pre_output = model(contexts, poems)

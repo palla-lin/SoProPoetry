@@ -48,7 +48,7 @@ class EncoderDecoder(nn.Module):
 
         for t in range(self.config["poem_size"]):
             decoder_input = target_seq_embed[t,:].unsqueeze(1)
-            decoder_hidden, _, pre_output = self.decoder(decoder_input, encoder_hidden, decoder_hidden)
+            _, decoder_hidden, pre_output = self.decoder(decoder_input, encoder_hidden, decoder_hidden)
             decoder_states.append(decoder_hidden)
             pre_output_vectors.append(pre_output)
 

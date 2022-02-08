@@ -11,6 +11,7 @@ from tqdm import tqdm
 from RAKE import Rake
 
 import strings
+from util import read_file
 
 
 ALPHABET = list(string.ascii_letters)
@@ -66,7 +67,7 @@ def process_poems():
     #     3. keywords from the selected lines
     for topic, poems in tqdm(data.items()):
         for poem in poems:
-            lines = poem.split('\n')[:4]
+            lines = poem.split('\n')[:LINES_LIMIT]
 
             keywords = rake_object.run("\n".join(lines))
             keywords = list({process_word(pair[0].split(' ')[0]) for pair in keywords[:min(5, len(keywords))]})
@@ -135,7 +136,6 @@ if __name__ == "__main__":
 
     split_dataset(dataset)
 
-    from util import read_file
     train_set = read_file(strings.ENG_TRAIN_PATH)
     valid_set = read_file(strings.ENG_VALID_PATH)
     test_set = read_file(strings.ENG_TEST_PATH)
