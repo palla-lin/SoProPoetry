@@ -2,6 +2,7 @@ import json
 import random
 
 import torch
+import torch.nn as nn
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -15,6 +16,18 @@ def set_seed(seed):
     torch.cuda.manual_seed(seed)
 
 
+def init_weights(m):
+    for name, param in m.named_parameters():
+        if 'weight' in name:
+            nn.init.normal_(param.data, mean=0, std=0.01)
+        else:
+            nn.init.constant_(param.data, 0)
+
+
+def count_parameters(model):
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+
 def read_file(path):
     extension = path.split('.')[-1].lower()
 
@@ -23,6 +36,14 @@ def read_file(path):
             data = json.load(json_file)
 
     return data
+
+
+def epoch_time(start_time, end_time):
+    elapsed_time = end_time - start_time
+    elapsed_mins = int(elapsed_time / 60)
+    elapsed_secs = int(elapsed_time - (elapsed_mins * 60))
+
+    return elapsed_mins, elapsed_secs
 
 
 def sort_batch(batch, targets, lengths):
@@ -57,7 +78,7 @@ def pad_and_sort_batch(DataLoaderBatch):
         padded_cnxts[i, 0:lens[0]] = cnxts[i][0:lens[0]]
         padded_targs[i, 0:lens[1]] = targs[i][0:lens[1]]
 
-    return sort_batch(torch.tensor(padded_cnxts, dtype=torch.int), torch.tensor(padded_targs, dtype=torch.int), torch.tensor(targs_len, dtype=torch.int))
+    return sort_batch(torch.tensor(padded_cnxts, dtype=torch.long), torch.tensor(padded_targs, dtype=torch.long), torch.tensor(cnxts_lens, dtype=torch.long))
 
 
 def plot_perplexity(perplexities):

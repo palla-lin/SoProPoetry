@@ -12,6 +12,8 @@
     "dropout": 0.2,
     "add_attention": false,
     "max_output_len": 100,
-    "num_epochs": 1,
-    "lr": 0.001
+    "num_epochs": 5,
+    "lr": 0.001,
+    "clip": 1,
+    "teacher_forcing": 0.5
 }
