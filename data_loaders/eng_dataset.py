@@ -20,10 +20,6 @@ class EnglishPoetryDataset(Dataset):
         data = self.corpus[key]
 
         context = data["keywords"]
-
-        # Hack for testing! Should be properly fixed!!!
-        if len(context) == 0:
-            context = ["alone"]
         
         limit = min(len(context), self.input_size)
         encoded_context = torch.tensor([self.token_to_id[token] for token in context[:limit]])

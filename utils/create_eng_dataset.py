@@ -6,6 +6,7 @@ import string
 import pickle
 import operator
 from collections import defaultdict
+from torch import le
 
 from tqdm import tqdm
 from RAKE import Rake
@@ -49,8 +50,8 @@ def process_poems():
     example_id = 0
     dataset = {}
 
-    # Reka setup with stopword directory.
-    # Reka is used for keywords extraction.
+    # Rake setup with stopword directory.
+    # Rake is used for keywords extraction.
     stop_dir = f"{strings.STOPWORDS_LIST_PATH}"
     rake_object = Rake(stop_dir)
 
@@ -71,10 +72,14 @@ def process_poems():
 
             keywords = rake_object.run("\n".join(lines))
             keywords = list({process_word(pair[0].split(' ')[0]) for pair in keywords[:min(5, len(keywords))]})
+            
+            # Exclude bad examples
+            if len(keywords) < 2:
+                continue
 
-            instance = {"topic": topic, "keywords": keywords, "example": process_lines(lines)}
+            example = process_lines(lines)
+            instance = {"topic": topic, "keywords": keywords, "example": example}
             dataset[f"example_{example_id}"] = instance
-
             example_id += 1
     
     return dataset
