@@ -81,30 +81,34 @@ def pad_and_sort_batch(DataLoaderBatch):
     return sort_batch(torch.tensor(padded_cnxts, dtype=torch.long), torch.tensor(padded_targs, dtype=torch.long), torch.tensor(cnxts_lens, dtype=torch.long))
 
 
-def plot_perplexity(perplexities):
-    plt.title("Perplexity per Epoch")
+def plot_perplexity(data):
+    epochs = list(range(data["epochs"]))
+    plt.figure(1)
+
+    # Losses
+    plt.subplot(121)
+    for loss in ["train_losses", "valid_losses"]:
+        lbl = loss.split('_')[0]
+        plt.plot(epochs, data[loss], label=lbl)
+    plt.ylabel('Loss')
     plt.xlabel("Epoch")
-    plt.ylabel("Perplexity")
-    plt.plot(perplexities)
+    plt.title('Losses per epoch')
+    plt.grid(True)
+    leg = plt.legend(loc='best', ncol=1, mode="expand", shadow=True, fancybox=True)
+    leg.get_frame().set_alpha(0.5)
+
+    # PPLs
+    plt.subplot(122)
+    for ppl in ["train_ppls", "valid_ppls"]:
+        lbl = ppl.split('_')[0]
+        plt.plot(epochs, data[ppl], label=lbl)
+    plt.ylabel('PPL')
+    plt.xlabel("Epoch")
+    plt.title('PPL per epoch')
+    plt.grid(True)
+    leg = plt.legend(loc='best', ncol=1, mode="expand", shadow=True, fancybox=True)
+    leg.get_frame().set_alpha(0.5)
+
     plt.show()
 
 
-class SimpleLossCompute:
-
-    def __init__(self, generator, criterion, optimizer=None):
-        self.generator = generator
-        self.criterion = criterion
-        self.optimizer = optimizer
-
-    def __call__(self, x, y, norm):
-        x = self.generator(x)
-        loss = self.criterion(x.contiguous().view(-1, x.size(-1)),
-                              y.contiguous().view(-1))
-        loss = loss / norm
-
-        if self.optimizer is not None:
-            loss.backward()          
-            self.optimizer.step()
-            self.optimizer.zero_grad()
-
-        return loss.data.item() * norm

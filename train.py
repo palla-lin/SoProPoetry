@@ -1,5 +1,6 @@
 import math
 import time
+import json
 
 from tqdm import tqdm
 
@@ -10,7 +11,7 @@ from torch.utils.data import DataLoader
 from torch.nn.utils import clip_grad_norm_
 
 from models.seq2seq import EncoderDecoder
-from utils.util import read_file, set_seed, init_weights, count_parameters, epoch_time, pad_and_sort_batch
+from utils.util import read_file, set_seed, init_weights, count_parameters, epoch_time, pad_and_sort_batch, plot_perplexity
 from data_loaders.eng_dataset import EnglishPoetryDataset
 from utils.strings import CONFIG_PATH, ENG_TRAIN_PATH, ENG_VALID_PATH, PAD
 
@@ -76,6 +77,7 @@ def train(config):
     lr = config["lr"]
     clip = config["clip"]
     batch_size = config["batch_size"]
+    model_name = config["model_name"]
 
     train_set = EnglishPoetryDataset(ENG_TRAIN_PATH, config["context_size"], config["poem_size"])
     valid_set = EnglishPoetryDataset(ENG_VALID_PATH, config["context_size"], config["poem_size"])
@@ -87,10 +89,14 @@ def train(config):
 
     print(f'The model has {count_parameters(model):,} trainable parameters')
 
-    optimizer = optim.Adam(model.parameters())
+    optimizer = optim.Adam(model.parameters(), weight_decay=1e-4)
     criterion = nn.CrossEntropyLoss(ignore_index = pad_idx)
 
     best_valid_loss = float('inf')
+    train_losses = []
+    valid_losses = []
+    train_ppls = []
+    valid_ppls = []
     for epoch in range(num_epochs):
         start_time = time.time()
     
@@ -102,11 +108,27 @@ def train(config):
 
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
-            torch.save(model.state_dict(), 'encdec_attn-model.pt')
+            torch.save(model.state_dict(), model_name)
     
         print(f'Epoch: {epoch+1:02} | Time: {epoch_mins}m {epoch_secs}s')
         print(f'\tTrain Loss: {train_loss:.3f} | Train PPL: {math.exp(train_loss):7.3f}')
         print(f'\t Val. Loss: {valid_loss:.3f} |  Val. PPL: {math.exp(valid_loss):7.3f}')
+
+        train_losses.append(train_loss)
+        valid_losses.append(valid_loss)
+        train_ppls.append(math.exp(train_loss))
+        valid_ppls.append(math.exp(valid_loss))
+
+    losses_ppls_dict = {"train_losses": train_losses, 
+                        "valid_losses": valid_losses,
+                        "train_ppls": train_ppls,
+                        "valid_ppls": valid_ppls,
+                        "epochs": num_epochs}
+
+    with open(f"{model_name.split('.')[0]}_losses.json", 'w+') as json_file:
+        json.dump(losses_ppls_dict, json_file, indent=4)
+    
+    plot_perplexity(losses_ppls_dict)
 
 
 if __name__ == "__main__":
