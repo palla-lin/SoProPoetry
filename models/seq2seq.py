@@ -8,12 +8,21 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 class EncoderDecoder(nn.Module):
 
-    def __init__(self, config, pad_idx, device, teacher_forcing=None):
+    def __init__(self, config, dataset, pad_idx, device, teacher_forcing=None):
         super().__init__()
 
-        self.embedding = nn.Embedding(config["vocab_size"], 
-                                  config["embed_size"], 
-                                  padding_idx=pad_idx)
+        self.pad_idx = pad_idx
+        self.device = device
+        self.teacher_forcing = teacher_forcing if teacher_forcing else config["teacher_forcing"]
+        self.vocab_size = dataset.get_vocab_size()
+
+        if config["use_glove"]:
+            self.embedding = nn.Embedding.from_pretrained(torch.from_numpy(dataset.get_glove()).float())
+            self.embedding.weight.requires_grad = False
+        else:
+            self.embedding = nn.Embedding(self.vocab_size, 
+                                          config["embed_size"], 
+                                          padding_idx=pad_idx)
         
         self.dropout = nn.Dropout(config["dropout"])
 
@@ -28,18 +37,13 @@ class EncoderDecoder(nn.Module):
                                    config["hidden_size"],
                                    config["bidirectional"])
 
-        self.decoder = Decoder(config["vocab_size"],
+        self.decoder = Decoder(self.vocab_size,
                                config["embed_size"],
                                config["hidden_size"],
                                config["hidden_size"],
                                config["bidirectional"],
                                config["dropout"],
                                self.attention)
-        
-        self.pad_idx = pad_idx
-        self.device = device
-        self.teacher_forcing = teacher_forcing if teacher_forcing else config["teacher_forcing"]
-        self.vocab_size = config["vocab_size"]
     
     def create_mask(self, cnxt):
         return (cnxt != self.pad_idx).permute(1, 0)

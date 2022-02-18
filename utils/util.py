@@ -3,8 +3,11 @@ import random
 
 import torch
 import torch.nn as nn
+
 import numpy as np
 import matplotlib.pyplot as plt
+
+from utils.strings import ENG_CORPUS_PATH, GLOVE_EMBED_PATH, BOP, EOP, EOL, UNK, PAD
 
 
 def set_seed(seed):
@@ -34,6 +37,8 @@ def read_file(path):
     if extension == "json":
         with open(path, "r") as json_file:
             data = json.load(json_file)
+    elif extension == "npy":
+        data = np.load(path)
 
     return data
 
@@ -112,3 +117,64 @@ def plot_perplexity(data):
     plt.show()
 
 
+def create_vocabs(dim=50):
+    # Regular vocab
+    full_corpus = read_file(ENG_CORPUS_PATH)
+    vocab = {BOP, EOP, EOL, PAD, UNK}
+    token_to_id = {BOP: 0, EOP: 1, EOL: 2, PAD: 3, UNK: 4}
+    id_to_token = {0: BOP, 1: EOP, 2: EOL, 3: PAD, 4: UNK}
+    token_id = 5
+
+    for instance in full_corpus.values():
+        tokens = instance["keywords"] + instance["example"]
+
+        for token in tokens:
+            if token not in vocab:
+                vocab.add(token)
+                token_to_id[token] = token_id
+                id_to_token[token_id] = token
+                token_id += 1
+    
+    with open(f"data/token_to_id.json", "w+") as json_file:
+        json.dump(token_to_id, json_file, indent=4)
+    
+    with open(f"data/id_to_token.json", "w+") as json_file:
+        json.dump(id_to_token, json_file, indent=4)
+
+    # Vocab for GLOVE embeddings
+    token_to_id = {BOP: 0, EOP: 1, EOL: 2, PAD: 3, UNK: 4}
+    id_to_token = {0: BOP, 1: EOP, 2: EOL, 3: PAD, 4: UNK}
+    token_id = 5
+    embeddings = []
+    path = GLOVE_EMBED_PATH + str(dim) + "d.txt"
+
+    with open(path, 'r') as txt_file:
+        for line in txt_file:
+            content = line.strip().split(' ')
+            
+            token = content[0]
+            if token in vocab:
+                token_to_id[token] = token_id
+                id_to_token[token_id] = token
+                token_id += 1
+
+                embed = [float(val) for val in content[1:]]
+                embeddings.append(embed)
+
+    np_embeddings = np.array(embeddings)
+    sop_emb = np.random.normal(0, 2, size=(1, np_embeddings.shape[1]))
+    eop_emb = np.random.normal(0, 2, size=(1, np_embeddings.shape[1]))
+    eol_emb = np.random.normal(0, 2, size=(1, np_embeddings.shape[1]))
+    pad_emb = np.zeros((1,np_embeddings.shape[1]))
+    unk_emb = np.mean(np_embeddings,axis=0,keepdims=True)
+
+    glove_embeddings = np.vstack((sop_emb, eop_emb, eol_emb, pad_emb, unk_emb, np_embeddings))
+
+    with open(f"data/token_to_id_glove.json", "w+") as json_file:
+        json.dump(token_to_id, json_file, indent=4)
+    
+    with open(f"data/id_to_token_glove.json", "w+") as json_file:
+        json.dump(id_to_token, json_file, indent=4)
+    
+    with open('glove_embeddings.npy','wb') as f:
+        np.save(f, glove_embeddings)

@@ -79,17 +79,19 @@ def train(config):
     batch_size = config["batch_size"]
     model_name = config["model_name"]
 
-    train_set = EnglishPoetryDataset(ENG_TRAIN_PATH, config["context_size"], config["poem_size"])
-    valid_set = EnglishPoetryDataset(ENG_VALID_PATH, config["context_size"], config["poem_size"])
+    train_set = EnglishPoetryDataset(ENG_TRAIN_PATH, config["context_size"], config["poem_size"], config["use_glove"])
+    valid_set = EnglishPoetryDataset(ENG_VALID_PATH, config["context_size"], config["poem_size"], config["use_glove"])
     pad_idx = train_set.get_token_id(PAD)
 
+    print(f"Vocabulary size: {train_set.get_vocab_size()}")
+
     device = torch.device('cuda' if config["use_cuda"] else 'cpu')
-    model = EncoderDecoder(config, pad_idx, device).to(device)
+    model = EncoderDecoder(config, train_set, pad_idx, device).to(device)
     model.apply(init_weights)
 
     print(f'The model has {count_parameters(model):,} trainable parameters')
 
-    optimizer = optim.Adam(model.parameters(), weight_decay=1e-4)
+    optimizer = optim.AdamW(model.parameters())
     criterion = nn.CrossEntropyLoss(ignore_index = pad_idx)
 
     best_valid_loss = float('inf')
@@ -134,4 +136,10 @@ def train(config):
 if __name__ == "__main__":
     model_config = read_file(CONFIG_PATH)
 
+    #train_set = EnglishPoetryDataset(ENG_TRAIN_PATH, 
+    #                                 model_config["context_size"], 
+    #                                 model_config["poem_size"], 
+    #                                 model_config["use_glove"])
+    #print(f"Dataset size: {len(train_set)}")
+    #print(f"Vocab size: {train_set.get_vocab_size()}")
     train(model_config)
