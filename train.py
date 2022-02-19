@@ -75,6 +75,7 @@ def train(config):
     set_seed(config["seed"])
     num_epochs = config["num_epochs"]
     lr = config["lr"]
+    early_stop_limit = config["early_stop_limit"]
     clip = config["clip"]
     batch_size = config["batch_size"]
     model_name = config["model_name"]
@@ -91,7 +92,10 @@ def train(config):
 
     print(f'The model has {count_parameters(model):,} trainable parameters')
 
-    optimizer = optim.AdamW(model.parameters())
+    optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=2)
+    early_stop_counter = early_stop_limit
+    stop_training = False
     criterion = nn.CrossEntropyLoss(ignore_index = pad_idx)
 
     best_valid_loss = float('inf')
@@ -111,6 +115,12 @@ def train(config):
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
             torch.save(model.state_dict(), model_name)
+            early_stop_counter = early_stop_limit
+        else:
+            early_stop_counter -= 1
+
+            if early_stop_counter == 0:
+                stop_training = True
     
         print(f'Epoch: {epoch+1:02} | Time: {epoch_mins}m {epoch_secs}s')
         print(f'\tTrain Loss: {train_loss:.3f} | Train PPL: {math.exp(train_loss):7.3f}')
@@ -120,6 +130,12 @@ def train(config):
         valid_losses.append(valid_loss)
         train_ppls.append(math.exp(train_loss))
         valid_ppls.append(math.exp(valid_loss))
+
+        scheduler.step(valid_loss)
+
+        if stop_training:
+            num_epochs = epoch+1
+            break
 
     losses_ppls_dict = {"train_losses": train_losses, 
                         "valid_losses": valid_losses,
