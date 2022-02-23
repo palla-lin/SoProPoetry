@@ -28,6 +28,44 @@ def plot_losses(data, positions):
     plt.show()
 
 
+def plot_final():
+    path = "experiments/final/encdec_attn-final_losses.json"
+    with open(path, 'r') as json_file:
+        data = json.load(json_file)
+
+    plt.figure(1)
+
+    plt.subplot(121)
+    for ind, losses in enumerate([data["train_losses"], data["valid_losses"]]):
+        if ind == 0:
+            lbl= "train"
+        else:
+            lbl = "valid"
+        plt.plot(list(range(len(losses))), losses, label=lbl)
+    plt.xlabel("Epoch")
+    plt.ylabel('Loss')
+    plt.title("Train vs valid losses")
+    plt.grid(True)
+    leg = plt.legend(loc="upper left", ncol=1, mode=None, shadow=True, fancybox=True)
+    leg.get_frame().set_alpha(0.5)
+
+    plt.subplot(122)
+    for ind, losses in enumerate([data["train_ppls"], data["valid_ppls"]]):
+        if ind == 0:
+            lbl= "train"
+        else:
+            lbl = "valid"
+        plt.plot(list(range(len(losses))), losses, label=lbl)
+    plt.xlabel("Epoch")
+    plt.ylabel('PPL')
+    plt.title("Train vs valid PPLs")
+    plt.grid(True)
+    leg = plt.legend(loc="upper left", ncol=1, mode=None, shadow=True, fancybox=True)
+    leg.get_frame().set_alpha(0.5)
+
+    plt.show()
+
+
 def get_losses(path):
     all_losses = {}
 
@@ -52,4 +90,6 @@ def get_losses(path):
 
 
 if __name__ == "__main__":
-    plot_losses(get_losses(getcwd()), [131, 132, 133])
+    #plot_losses(get_losses(getcwd()), [131, 132, 133])
+
+    plot_final()
