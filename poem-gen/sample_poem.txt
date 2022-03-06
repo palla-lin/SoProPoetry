@@ -1,61 +1,259 @@
+Enter poem topic: sleep
+Enter list of keywords (separated by commas (,)): midnight, ghost, angels
+********************SLEEP poems********************
+1: Thou art asleep,
+Not knowing of me
+While I sleep;
+But lo, where thou art
+I dream of thee,
+The only one that sees
+The light that thou art--
+
+The one that sees
+The soul, who, awake,
+Hath looked through thy veil
+The long night-hours
+Of all night.
+
+Come, thou child of night,
+Out of the dark cave--
+See how I slept
+Like the others.
+I sleep in thy hand--
+But my ghost hears--
+So I pray I am dead.
+
+
+
+----------------------------------------
+2: O I awake, and with a sigh
+Within my tired soul's sleep I lie:--
+I must a while sleep, and then be awakened again.
+Sleep! let me not think
+Of your soft and loving arms I wear;
+Of the soft arms that embrace me:--
+But when, with my dying breath, I wake,
+I cannot think I shall have known you.
+
+My fingers, in vain they pursue
+The thin and sweet-smelling string of sleep:--
+I cannot lift my face from their kiss.
+My heart is worn, and I cannot know
+The place of your arms I must take.
+Sleep! sleep! wherefore, if in thy hour I die,
+Will you, or angels, come to me?
+
+When night is breaking on thy lea,
+And the light is withdrawn--
+When morning's sighs the light turns to silver,
+When night's lute has ceased,
+I'll be awakened on the other side,
+I'm in my bed!
+
+
+
+----------------------------------------
+3: Somehow the angel was
+In the bed of my bed;
+Somehow he woke me
+At the first sign of waking,
+And said: 'This morning will be dark.
+There are some things which you must see,
+The windows are rickety;
+They cannot even open the doors;
+No one wants to come and sit in that.'
+So I was turned away:
+Then he led me out
+And said: 'Come, and eat my supper.
+You must have something to eat,
+Something you can smell,
+Something you can smell.
+Just eat, my dear,
+The flesh is so golden,
+I'm eating it in the middle of the night.'
+Thus I went to sleep,
+And woke up at a sound
+Like that of a bird that flies.
+
+
+
+----------------------------------------
+Enter poem topic: nature
+Enter list of keywords (separated by commas (,)): tree,summer,birds
+<|BOS|>nature<|SEP|>tree,summer,birds<|SEP|>
 ********************NATURE poems********************
-Nature is fair and beautiful
-Nature is fair and beautiful
-And what you want from me, I'll gladly give
-I'll love to live near you.
+1: Nature is  a sweet flower,
+The softest of the blue,
+That ever one man hath got.
+And thou, my sweet tree,
+Wre sent out to all to show
+That it hath got thee.
 
-
-Oh, nature is sweet and lovely
-Nature is sweet and beautiful
-And what you want from me, I'll gladly give
-I'll love to live near you.
-
-
-Oh, nature is fair and beautiful
-Nature is sweet and beautiful
-And what you want from me, I'll gladly give
-I'll love to live near you.
+My little bird, my little tree,
+That never in the world
+Can grow any flower,
+Nature send thee out to all.
 
 
 
-********************LOVE poems********************
-Love's a thing that seems,
-It must be so.
-Love's a thing that seems
-That's hard to bare
-It's hard to give it.
+----------------------------------------
+2: We all know the trees around us,
+The greenhouses that shade the ground,
+The tall silvery mansions we'd adore,
+The old mansions with their private gardens,
+We'd watch the trees around us as they fade,
+And marvel what beauty there is in Nature!
 
-Love is a thing,
-It can hurt,
-It can make you frown,
-It can make you love,
-Love's a thing that's hard to bare.
-
-Love's a thing,
-It turns your face away,
-It makes the world go round,
-Love's a thing that seems,
-And hard to bare.
+Oh I wonder, can we look on Nature as if we were Gods,
+When such beauty could be placed in man's pride,
+And there would be no place for him in Nature,
+For Nature is a tree, and man an insect,
+And birds have different names from man.
 
 
-********************RELIGION poems********************
-Religion and morality are not the same.
-You cannot have an honest conversation.
-God is not interested in you.
-God is not interested in what you want,
-or what you are.
-You can have a happy or unhappy life
-without religion, morality and religion.
 
-You can have a rich or poor life
-without religion, morality and religion.
-God is not interested in you.
-Your life is your own affair.
-You have nothing to fear or worry.
-God is not concerned with you.
-And even your present life will be incomplete.
+----------------------------------------
+3: When the spring leaves come down,
+The birds are singing.
+When the trees close to the ground,
+The birds are leaving trees to fly.
+When the sun rise in the evening,
+The birds are singing.
+When spring comes in the summer,
+The birds are coming in.
+When the leaves come down,
+The birds are singing.
+When the sun rise in the afternoon,
+The birds are singing.
+When the tree close to the ground,
+The birds are leaving trees to fly.
 
-Religion and morality don't tie together.
-You can have a happy or unhappy life
-without religion, morality and religion.
+
+
+----------------------------------------
+Enter poem topic: sky
+Enter list of keywords (separated by commas (,)): hope, love, angels
+<|BOS|>sky<|SEP|>hope, love, angels<|SEP|>
+********************SKY poems********************
+1: Hopes of wings
+Are just like hope
+That you
+Will soar
+Into a sky
+So calm and blue
+
+That we
+Will walk
+Through the storm
+Of love
+And never fear
+The darkness
+Of our own fears
+That sometimes
+We get
+Harmonized
+Till we are gone
+
+
+
+----------------------------------------
+2: Hear me, then, my friend, or my enemy
+In the darkest hour and darkest day.
+For the love I give to you is true.
+I give it to you for God
+I give it, for that is my reward.
+For the love I give to you is true.
+
+And if I give to you something
+You want, just give to me,
+And I will give you what I want.
+There is no hiding, your waiting here.
+If I give you something
+You want, just give to me,
+And I will give you what you ask.
+
+Because I know that you know
+You are mine, I am not yours,
+And I will do everything I can
+For God's little child is here.
+Because I know that she will love me
+And I will be their angel forever.
+
+
+
+----------------------------------------
+3: There is a secret love hidden deep within
+The wings of the angel in me that is waiting
+And waiting for my love
+The wings of a butterfly so big and bold
+The wings of a bird so beautiful and pure
+Waiting for my love
+Waiting for a night to come and end
+
+What do you all mean to me
+Do you all mean to me
+When we last spoke we did not mean to stay
+For we did not want to leave this place
+So we came to this land for a honeymoon
+And we came to this land to save
+A life from a person who is not our own
+Waiting so long to be a part of his or her life
+
+
+
+----------------------------------------
+Enter poem topic: childhood
+Enter list of keywords (separated by commas (,)): child, candy, family, sisters
+<|BOS|>childhood<|SEP|>child, candy, family, sisters<|SEP|>
+********************CHILDHOOD poems********************
+1: Let's give our childhood a colorful color
+Let's give our childhood a little candy
+Let's give our childhood a little crack.
+
+Let's give our childhood a little colorful,
+Let's give our childhood a little candy.
+We can show our childhood to ours,
+We can show their little crack.
+
+
+
+----------------------------------------
+2: I always felt that I had all the answers to everything
+I wanted to make it to the top of the charts
+I wanted to have my family name recognized
+I wanted to be loved and adored
+I wanted to have my favorite foods and drink
+I wanted to have fun and be proud
+I wanted to have my favorite places to visit
+I wanted to do all the things I could
+I wanted to do everything that I could
+
+And when I was done all the things I had planned
+And all the things that were going to come to pass
+That day I cried and cried too
+
+I cried a lot
+And cried a lot more
+I was scared and scared
+I was crying a lot more
+And I cried a lot more
+
+Now that I've become this auntie
+And no longer will I be this special kid
+I still wonder when will this be my last time
+As I know that this day will be a blur
+For everything that I've done
+will be different then when
+I was a kid.
+
+
+
+----------------------------------------
+3: Childhood is a funny thing.
+You don't know the whole story until you grow up.
+But some times, there seems to be a little truth.
+Some kids cry and some never cry.
+You shouldn't have to hide your feelings for them.
+It's funny when all that is important to you
+Is something that is always out of sight.
 

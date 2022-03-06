@@ -20,14 +20,29 @@ import torch.optim as optim
 import torch.nn as nn
 from transformers import GPT2Tokenizer, GPT2LMHeadModel, GPT2Config, AdamW, get_linear_schedule_with_warmup
 
+from transformers import AutoTokenizer, AutoConfig, AutoModelForPreTraining, \
+                         AdamW, get_linear_schedule_with_warmup, \
+                         TrainingArguments, BeamScorer, Trainer
+
+from dataset_loader import NeuralPoetDataset
+
+
 RANDOM_SEED = random.randint(100, 999)
 torch.cuda.manual_seed_all(RANDOM_SEED)
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
-
+MODEL = 'gpt2'
 
 DEVICE = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
 print("Training on:", DEVICE)
+
+SPECIAL_TOKENS  = {
+            'bos_token': '<|BOS|>',  # beginning of sents
+            'eos_token': '<|EOS|>',  # end of sents
+            'pad_token': '<|PAD|>',  # padding toks
+            'sep_token': '<|SEP|>',  # separator
+            'unk_token': '<|UNK|>'   # unknown token
+        }
 
 
 # helper function for logging time
@@ -41,13 +56,21 @@ class Run(object):
     @staticmethod
     def train(tokenizer, train_dataloader, val_dataloader, params):
 
-        configuration = GPT2Config(vocab_size=len(
-            tokenizer), n_positions=params.MAX_LEN).from_pretrained('gpt2', output_hidden_states=True)
-
-        model = GPT2LMHeadModel.from_pretrained('gpt2', config=configuration)
+        # configuration = GPT2Config(vocab_size=len(
+        #     tokenizer), n_positions=params.MAX_LEN).from_pretrained('gpt2', output_hidden_states=True)
+        
+        configuration = AutoConfig.from_pretrained(MODEL,
+                                            bos_token_id=tokenizer.bos_token_id,
+                                            eos_token_id=tokenizer.eos_token_id,
+                                            sep_token_id=tokenizer.sep_token_id,
+                                            pad_token_id=tokenizer.pad_token_id,
+                                            output_hidden_states=False)
+        
+        # model = GPT2LMHeadModel.from_pretrained('gpt2', config=configuration)
+        model = AutoModelForPreTraining.from_pretrained(MODEL, config=configuration)        
         model.resize_token_embeddings(len(tokenizer))
-
         model.cuda()
+        
         optimizer = AdamW(model.parameters(),
                         lr=params.learning_rate, eps=params.eps)
         total_steps = len(train_dataloader) * params.EPOCHS
@@ -117,13 +140,18 @@ class ConditionalGenerate():
     def generate(tokenizer, params):
 
         # Load trained model
-        configuration = GPT2Config(vocab_size=len(
-            tokenizer), n_positions=params.MAX_LEN).from_pretrained('gpt2', output_hidden_states=True)
+        configuration = AutoConfig.from_pretrained(MODEL,
+                                    bos_token_id=tokenizer.bos_token_id,
+                                    eos_token_id=tokenizer.eos_token_id,
+                                    sep_token_id=tokenizer.sep_token_id,
+                                    pad_token_id=tokenizer.pad_token_id,
+                                    output_hidden_states=False)
         
-        model = GPT2LMHeadModel.from_pretrained('gpt2', config=configuration)
+        model = AutoModelForPreTraining.from_pretrained(MODEL, config=configuration)
         model.resize_token_embeddings(len(tokenizer))
 
         model_path = glob.glob(params.out_dir + "/*.pth")[0]
+        print("Using model: ", model_path)
         model.load_state_dict(torch.load(model_path, map_location=DEVICE))
         model.cuda()        
         model.eval()
@@ -132,8 +160,16 @@ class ConditionalGenerate():
         ip_topic = ''
         while ip_topic != 'exit':
             ip_topic = str(input("Enter poem topic: "))
-            prompt = "<BOS> " + ip_topic
-            generated = torch.tensor(tokenizer.encode(prompt)).unsqueeze(0)
+            keywords = str(input("Enter list of keywords (separated by commas (,)): "))
+            keywords = keywords.split(",")
+            kw = NeuralPoetDataset.join_keywords(keywords, randomize=False)
+            
+            condition = SPECIAL_TOKENS['bos_token'] + ip_topic + \
+            SPECIAL_TOKENS['sep_token'] + kw + SPECIAL_TOKENS['sep_token']
+        
+            print(condition)
+            
+            generated = torch.tensor(tokenizer.encode(condition)).unsqueeze(0)
             generated = generated.to(DEVICE)
             
             
@@ -147,7 +183,9 @@ class ConditionalGenerate():
                                             )
             print("*"*20 + str(ip_topic.upper()) + " poems" + "*"*20)
             for i, sample_output in enumerate(sample_outputs):
-                print("{}: {}\n\n".format(i+1, tokenizer.decode(sample_output, skip_special_tokens=True)))
+                text = tokenizer.decode(sample_output, skip_special_tokens=True)
+                a = len(ip_topic) + len(','.join(keywords)) 
+                print("{}: {}\n\n".format(i+1,  text[a:]))
                 print("-"*40)
 
 

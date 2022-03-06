@@ -8,14 +8,15 @@
 import numpy as np
 import pickle
 import random
+import pdb
 
 import torch
 from torch.utils.data import Dataset, random_split, \
     DataLoader, RandomSampler, SequentialSampler
-from transformers import GPT2Tokenizer
+from transformers import GPT2Tokenizer, AutoTokenizer
 
 
-from utils import *
+# from utils import *
 from parameters import Parameters as params
 from arguments import parse_arguments
 
@@ -30,26 +31,59 @@ class NeuralPoetDataset(Dataset):
         Dataset ([type]): [description]
     """
 
-    def __init__(self, data, tokenizer, max_length, gpt2_type='gpt2'):
+    def __init__(self, poem, tags, keywords, \
+                tokenizer, special_tokens_dict, \
+                max_length, gpt2_type='gpt2'):
         self.tokenizer = tokenizer
         self.input_ids = []
         self.attn_masks = []
+        self.poem = poem
+        self.tags = tags
+        self.keywords = keywords
+        self.tokenizer = tokenizer
+        self.max_length = max_length
+        self.special_tokens_dict = special_tokens_dict
+        self.input_ids = []
+        self.attn_masks = []
 
-        for i in data:
-            encodings_dict = tokenizer('<BOS>' + i + '<EOS>',
-                                       truncation=True,
-                                       max_length=max_length,
-                                       padding='max_length')
+        
+        for idx in range(len(self.poem)):
+            keyword = self.keywords[idx].copy()
+            kw = self.join_keywords(keyword)
 
-            self.input_ids.append(torch.tensor(encodings_dict['input_ids']))
-            self.attn_masks.append(torch.tensor(
-                encodings_dict['attention_mask']))
-
+            input = self.special_tokens_dict['bos_token'] + \
+                    self.tags[idx] + \
+                    self.special_tokens_dict['sep_token'] + \
+                    kw + \
+                    self.special_tokens_dict['sep_token'] + \
+                    self.poem[idx] + \
+                    self.special_tokens_dict['eos_token']
+    
+            encodings_dict = self.tokenizer(input,                                   
+                                       truncation=True, 
+                                       max_length=self.max_length, 
+                                       padding="max_length") 
+            input_ids = torch.tensor(encodings_dict['input_ids'])
+            attention_mask = torch.tensor(encodings_dict['attention_mask'])
+            self.input_ids.append(input_ids)
+            self.attn_masks.append(attention_mask)
+        
     def __len__(self):
         return len(self.input_ids)
 
     def __getitem__(self, idx):
         return self.input_ids[idx], self.attn_masks[idx]
+
+
+    @staticmethod
+    def join_keywords(keywords, randomize=True):
+        N = len(keywords)
+        #random sampling and shuffle
+        if randomize: 
+            M = random.choice(range(N+1))
+            keywords = keywords[:M]
+            random.shuffle(keywords)
+        return ','.join(keywords)
 
 
 class MyDataLoader(object):
@@ -63,22 +97,29 @@ class MyDataLoader(object):
     def load_data(self):
         """Load raw poems and its tags
         """
-        self.poems, self.tags, self.stanza_len = [], [], []
+        self.poems, self.tags, self.stanza_len, self.keywords = [], [], [], []
         for _, line in self.data.items():
             self.poems.append(line["poem"])
             self.tags.append(line["tags"])
             self.stanza_len.append(line["stanza_len"])
+            self.keywords.append(line["keywords"])
 
-        self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        # self.tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+        self.tokenizer = AutoTokenizer.from_pretrained('gpt2')
         special_tokens_dict = {
-            'bos_token': '<BOS>',  # beginning of sents
-            'eos_token': '<EOS>',  # end of sents
-            'pad_token': '<PAD>'}  # padding toks
-        num_added_tokens = self.tokenizer.add_special_tokens(special_tokens_dict)
+            'bos_token': '<|BOS|>',  # beginning of sents
+            'eos_token': '<|EOS|>',  # end of sents
+            'pad_token': '<|PAD|>',  # padding toks
+            'sep_token': '<|SEP|>',  # separator
+            'unk_token': '<|UNK|>'   # unknown token
+        }
+        self.tokenizer.add_special_tokens(special_tokens_dict)
 
         self.poem_dataset = NeuralPoetDataset(
-            self.poems, self.tokenizer, max_length=self.MAX_LEN)
+            self.poems, self.tags, self.keywords, self.tokenizer, \
+            special_tokens_dict, max_length=self.MAX_LEN)
 
+        
     def split_data(self):
         """Split dataset into train, test and validation set
         """
