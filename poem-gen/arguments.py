@@ -12,5 +12,6 @@ def parse_arguments():
     parser.add_argument("-max_len", default=1024, type=int, help='maximum sequence length [default: 1024]')
     parser.add_argument("-batch_size", default=2, type=int, help='batch size while training [default: 2]')
     parser.add_argument("-save_model", default=True, type=bool, help='save model  [default: True]')
+    parser.add_argument("-gen_poem_json", default=None, type=str, help='json file path to generated poems')
     args = parser.parse_args()
     return args

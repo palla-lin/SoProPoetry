@@ -31,3 +31,4 @@ class Parameters:
     dataset_obj=args.dataset_obj
     out_dir=args.out_dir    # [default: gpt-2]
     save_model=args.save_model  # [default: True]
+    gen_poem_json=args.gen_poem_json

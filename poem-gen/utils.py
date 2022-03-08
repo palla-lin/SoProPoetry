@@ -14,6 +14,8 @@ import time
 import datetime
 import glob
 import random
+import json
+from tqdm import tqdm
 
 import torch
 import torch.optim as optim
@@ -25,11 +27,11 @@ from transformers import AutoTokenizer, AutoConfig, AutoModelForPreTraining, \
                          TrainingArguments, BeamScorer, Trainer
 
 from dataset_loader import NeuralPoetDataset
-
+import pickle
 
 RANDOM_SEED = random.randint(100, 999)
 torch.cuda.manual_seed_all(RANDOM_SEED)
-np.random.seed(RANDOM_SEED)
+# np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 MODEL = 'gpt2'
 
@@ -162,7 +164,8 @@ class ConditionalGenerate():
             ip_topic = str(input("Enter poem topic: "))
             keywords = str(input("Enter list of keywords (separated by commas (,)): "))
             keywords = keywords.split(",")
-            kw = NeuralPoetDataset.join_keywords(keywords, randomize=False)
+            random.shuffle(keywords)
+            kw = ','.join(keywords)
             
             condition = SPECIAL_TOKENS['bos_token'] + ip_topic + \
             SPECIAL_TOKENS['sep_token'] + kw + SPECIAL_TOKENS['sep_token']
@@ -189,6 +192,181 @@ class ConditionalGenerate():
                 print("-"*40)
 
 
+class ConditionalGenerateMultiPoems():
+    
+    @staticmethod
+    def generate(data, tokenizer, params):
 
+        # Load trained model
+        configuration = AutoConfig.from_pretrained(MODEL,
+                                    bos_token_id=tokenizer.bos_token_id,
+                                    eos_token_id=tokenizer.eos_token_id,
+                                    sep_token_id=tokenizer.sep_token_id,
+                                    pad_token_id=tokenizer.pad_token_id,
+                                    output_hidden_states=False)
+        
+        model = AutoModelForPreTraining.from_pretrained(MODEL, config=configuration)
+        model.resize_token_embeddings(len(tokenizer))
+
+        model_path = glob.glob(params.out_dir + "/*.pth")[0]
+        print("Using model: ", model_path)
+        model.load_state_dict(torch.load(model_path, map_location=DEVICE))
+        model.cuda()        
+        model.eval()
+
+        
+        # We will randomly sample 3 keywords from each topic from the training set
+        # and generate poems conditioned upon them
+        tag_keywords = {}
+        for idx, line in data.items():
+            tag = line["tags"]
+            kws = line["keywords"]
+            if tag in tag_keywords:
+                tag_keywords[tag].extend(kws)
+            else:
+                tag_keywords[tag] = kws
+                
+        for tag, words in tag_keywords.items():
+            tag_keywords[tag] = list(set(words))
+        
+        flag = 0
+        plo = 0
+        to_write = {}
+        for tag, kws in tag_keywords.items():
+            flag += 1
+            print("Generating poems for topic no. (144):", flag, end="\r")
+            # plo += 1
+            # if plo > 4:
+            #     break
+            ip_topic = tag
+            to_write[ip_topic] = {}
+            # we generate 10 poems for each tag with randomly chosen keywords.
+            for k in range(10):
+                # we will randomly sample 3 keywords
+                random_kws = random.sample(kws, 5)
+                kw = ','.join(random_kws)
+                
+                condition = SPECIAL_TOKENS['bos_token'] + ip_topic + \
+                SPECIAL_TOKENS['sep_token'] + kw + SPECIAL_TOKENS['sep_token']
+                # print(condition)
+                
+                generated = torch.tensor(tokenizer.encode(condition)).unsqueeze(0)
+                generated = generated.to(DEVICE)
+                
+                # Top-k sampling
+                # sample_outputs = model.generate(
+                #                                 generated, 
+                #                                 do_sample=True,   
+                #                                 top_k=50, 
+                #                                 max_length=500,
+                #                                 top_p=0.95, 
+                #                                 num_return_sequences=1
+                #                                 )
+                
+                # Beam search
+                sample_outputs = model.generate(
+                                                generated, 
+                                                do_sample=True,   
+                                                num_beams=5, 
+                                                max_length=500,
+                                                num_return_sequences=1,
+                                                no_repeat_ngram_size=2,
+                                                early_stopping=True
+                                                )
+                
+                f_name = "results/" + "gpt-2-topic_kw_cond_sample_poems_beam" + ".json"
+                
+                for i, sample_output in enumerate(sample_outputs):
+                    text = tokenizer.decode(sample_output, skip_special_tokens=True)
+                    a = len(ip_topic) + len(','.join(random_kws))
+                    gen_poem = text[a:]
+                    
+                    to_write[ip_topic].update({
+                        str(kw) : gen_poem
+                        })
+                    
+        with open(f_name, 'w') as fp:
+            json.dump(to_write, fp)
+                    
+
+class ComputePerplexity():
+    # Compute PPL of generated poems
+    @staticmethod
+    def compute_ppl(tokenizer, params):
+        
+        # Load trained model
+        configuration = AutoConfig.from_pretrained(MODEL,
+                                    bos_token_id=tokenizer.bos_token_id,
+                                    eos_token_id=tokenizer.eos_token_id,
+                                    sep_token_id=tokenizer.sep_token_id,
+                                    pad_token_id=tokenizer.pad_token_id,
+                                    output_hidden_states=False)
+        
+        model = AutoModelForPreTraining.from_pretrained(MODEL, config=configuration)
+        model.resize_token_embeddings(len(tokenizer))
+
+        model_path = glob.glob(params.out_dir + "/*.pth")[0]
+        print("Using model: ", model_path)
+        model.load_state_dict(torch.load(model_path, map_location=DEVICE))
+        model.cuda()  
+        
+        # Load JSON file with generated poems
+        with open(params.gen_poem_json) as json_file:
+            data = json.load(json_file)
+    
+        to_write = {}
+        k=0
+        count = 0
+        for actual_tag, line in data.items():
+            k+= 1
+            print("Progress (144 poems)- ", k, end="\r")
+            to_write[actual_tag] = {}
+            for id, (kw, poem) in enumerate(line.items()):
+                if poem == "":
+                    count += 0
+                    pass
+                else:
+                    to_write[actual_tag][id] = {}
+                    ppl = get_ppl(poem, model, tokenizer)
+                    to_write[actual_tag][id].update({
+                        "Keywords": kw,
+                        "Perplexity": ppl.item(),
+                        "Poem": poem
+                    })
+        print("Total empty poems:", count)
+        f_name = "results/" + "gpt-2-poems-topk" + ".json"
+        with open(f_name, 'w') as fp:
+            json.dump(to_write, fp)
+
+        
+def get_ppl(poem, model, tokenizer):
+    encodings = tokenizer(poem, return_tensors="pt")
+    
+    max_length = model.config.n_positions
+    stride = 512
+    nlls = []
+    for i in range(0, encodings.input_ids.size(1), stride):
+        begin_loc = max(i + stride - max_length, 0)
+        end_loc = min(i + stride, encodings.input_ids.size(1))
+        trg_len = end_loc - i  # may be different from stride on last loop
+        input_ids = encodings.input_ids[:, begin_loc:end_loc].to(DEVICE)
+        target_ids = input_ids.clone()
+        target_ids[:, :-trg_len] = -100
+
+        with torch.no_grad():
+            outputs = model(input_ids, labels=target_ids)
+            neg_log_likelihood = outputs[0] * trg_len
+
+        nlls.append(neg_log_likelihood)
+    try:
+        ppl = torch.exp(torch.stack(nlls).sum() / end_loc)
+    except RuntimeError:
+        pdb.set_trace()
+    return ppl
+            
+
+
+## When generating new poems, disable random sampling and make sure, all input keywords are
+# contrained in the generated poems.
 
 

@@ -75,4 +75,30 @@ Total Training Time: 3:12:19
 ```
 
 # Results
-Samples of generated poem can be found in `sample_poem.txt`
+Samples of generated poem can be found under `results`
+1. For top-k sampling
+    - Avergae keyword usage across all 144 topics: 0.196
+    - Avergae PPL score across all 144 topics: 15.672
+2. For beam search
+    - Avergae keyword usage across all 144 topics: 0.180
+    - Avergae PPL score across all 144 topics: 126697.218
+
+- An overview of randomly generated poems
+```
+- sample_poem.txt
+```
+- Final results for poems generated using beam search and top-k sampling. Contains  avg PPL score and avg keyword word usage across 10 different poems generated for each topic.
+```
+- final-results-beam.json:
+- final-results-topk.json
+```
+- Contains generated poem for each topic along with PPL score and keyword used for each poem.
+```
+- gpt-2-poems-beam.json
+- gpt-2-poems-topk.json
+```
+- Same as above, but contains only poems and keywords.
+```
+- gpt-2-topic_kw_cond_sample_poems_beam.json
+- gpt-2-topic_kw_cond_sample_poems.json
+```

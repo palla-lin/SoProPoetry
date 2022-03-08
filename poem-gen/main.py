@@ -15,7 +15,9 @@ import pdb
 import pickle
 
 from dataset_loader import MyDataLoader
-from utils import Run, DEVICE, ConditionalGenerate
+from utils import Run, DEVICE, ConditionalGenerate, \
+    ConditionalGenerateMultiPoems, \
+        ComputePerplexity
 from parameters import Parameters as params
 
 
@@ -38,12 +40,17 @@ def main():
     print("Loading dataset....")
     data = pickle.load(open(params.dataset_obj, 'rb'))
     tokenizer, train_dataloader, val_dataloader = prepare_data(data)
+    # Save tokenizer
+    tokenizer.save_pretrained("gpt-2/")
     print("--Done--")
     
     # Train model
     # Run().train(tokenizer, train_dataloader, val_dataloader, params)
     print("\nGenerating poems....")
-    ConditionalGenerate().generate(tokenizer, params)
+    # ConditionalGenerate().generate(tokenizer, params)
+    # ConditionalGenerateMultiPoems().generate(data, tokenizer, params)
+    if params.gen_poem_json:
+        ComputePerplexity().compute_ppl(tokenizer, params)
     
 
 if __name__ == "__main__":
