@@ -155,7 +155,7 @@ def main():
     # predicted_tags = predict(X, model)
     
     # zip_actual_pred_tags = list(map(list, zip(actual_tags, predicted_tags)))
-    # with open(Parameters.out_dir+'/gpt2-poems-pred-tags.pkl', 'wb') as handle:
+    # with open(Parameters.out_dir+'/gpt2-beam-poems-pred-tags.pkl', 'wb') as handle:
     #     pickle.dump(zip_actual_pred_tags, handle, protocol=pickle.HIGHEST_PROTOCOL)
         
         
@@ -165,6 +165,28 @@ def main():
     X_ktop = tokenize_data(t_words, ktop_poem)
     greedy_predicted_tags = predict(X_greedy, model)
     ktop_predicted_tags = predict(X_ktop, model)
+    
+    to_write = {}
+    with open(args.poem_json_fp, 'r') as jf:
+        data = json.load(jf)
+
+    for id, (key, line) in enumerate(data.items()):
+        # Sanity check
+        if actual_tags[id] == data[key]["topic"]:
+            data[key].update(
+                {
+                    "greedy_poem_pred_topic": greedy_predicted_tags[id],
+                    "ktop_poem_pred_topic": ktop_predicted_tags[id]
+                    
+                }
+            )
+        else:
+            print("Error: Mismatch found")
+            
+    
+    with open('../poem-gen/results/encdec_attn-final_poems.json', 'w') as fp:
+        json.dump(data, fp, ensure_ascii=False, indent=4)
+    
     
     zip_actual_pred_tags = list(map(list, zip(actual_tags, greedy_predicted_tags, ktop_predicted_tags)))
     with open(Parameters.out_dir+'/enc-dec-poems-pred-tags.pkl', 'wb') as handle:

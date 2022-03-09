@@ -10,7 +10,7 @@ import argparse
 import numpy as np
 import pdb
 import json
-
+import pickle
 
 
 
@@ -33,10 +33,14 @@ def topic_classifier_prediction(actual_tag, poem):
     "Given a poem, predict its topic using topic classifier trained"
     
 
-def load_data(json_data):
-    with open(json_data) as json_file:
+def load_data(args):
+    with open(args.json_data) as json_file:
         data = json.load(json_file)
     
+    with open(args.pred_tags_pkl, 'rb') as fp:
+            actual_pred_tags = pickle.load(fp)
+    
+    pdb.set_trace()
     # Average-keyword-usage-ppl-score
     aku_ppl_score = {}
     for actual_tag, line in data.items():
@@ -72,7 +76,7 @@ def main():
     """ main method """
     args = parse_arguments()
     # os.makedirs(args.out_dir, exist_ok=True)
-    load_data(args.json_data)
+    load_data(args)
 
 
 def parse_arguments():
@@ -80,7 +84,7 @@ def parse_arguments():
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("json_data", help="input json file")
-    # parser.add_argument("arg_2", help="describe arg_2")
+    parser.add_argument("pred_tags_pkl", help="file path to pickled pred tags by topic classifier")
     # parser.add_argument("-optional_arg", default=default_value, type=int, help='optional_arg meant for some purpose')
     args = parser.parse_args()
     return args
