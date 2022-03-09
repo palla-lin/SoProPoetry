@@ -21,7 +21,6 @@ torch.manual_seed(123)
 torch.cuda.manual_seed(123)
 
 
-args = parse_arguments()
 
 DEVICE = torch.device("cuda:0") if torch.cuda.is_available() else torch.device("cpu")
 print("Training on:", DEVICE)
@@ -165,19 +164,16 @@ class Run:
         fscore_train = []
         fscore_test = []
         torch_F1 = torchmetrics.F1(num_classes=params.output_dim, average="micro")
-        if args.high_level_tags:
+        if params.high_level_tags:
             wandb.init(project="[HLT] Poem topic classification")    
         else:
             wandb.init(project="Poem topic classification")
         
         # Wand Configuration update
-        wandb.config.epochs = params.epochs
-        wandb.config.output_dim = params.output_dim
-        wandb.config.stride = params.stride
-        wandb.config.out_size = params.out_size
-        wandb.config.hidden_dim = params.hidden_dim
-        wandb.config.n_layers = params.n_layers
-        wandb.config.update(args)
+        param_dict = {}
+        for key in list(vars(params)["__annotations__"].keys()):
+            param_dict[key] = params.__dict__[key]
+        wandb.config.update(param_dict)
         
         for epoch in range(params.epochs):
             # =======================================

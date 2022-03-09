@@ -15,7 +15,7 @@ import pickle
 import pandas as pd
 
 from dataset_loader import DataLoader
-from model import biLSTM
+from model import CNN
 from utils import Run, DEVICE
 from parameters import Parameters
 from arguments import parse_arguments
@@ -64,7 +64,7 @@ def main():
 
     # Initialize the model
     start = time.time()
-    model = biLSTM(t_words, Parameters)
+    model = CNN(t_words, Parameters)
     model.to(DEVICE)
 
     # Train and Evaluate the pipeline

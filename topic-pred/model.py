@@ -17,9 +17,9 @@ from embeddings import Embedding
 """
 ### This is bi-directional LSTM, has terrible performance. Needs lot of improvement.
 
-class biLSTM(nn.ModuleList):
+class CNN(nn.ModuleList):
     def __init__(self, t_words, params):
-        super(biLSTM, self).__init__()
+        super(CNN, self).__init__()
         self.t_words = t_words
         self.embedding_size = params.embedding_size
         self.hidden_dim = params.hidden_dim
@@ -55,9 +55,9 @@ class biLSTM(nn.ModuleList):
 
 """
 
-class biLSTM(nn.ModuleList):
+class CNN(nn.ModuleList):
     def __init__(self, t_words, params):
-        super(biLSTM, self).__init__()
+        super(CNN, self).__init__()
 
 		# Parameters regarding text preprocessing
         self.t_words = t_words

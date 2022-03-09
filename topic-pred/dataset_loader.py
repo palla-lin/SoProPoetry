@@ -5,10 +5,12 @@
 # @Date:  Sun 05 Dec 2021 08:59:31 PM CET
 
 
-import json 
+import os
+import json
 import numpy as np
 import pickle
 import random
+import pdb
 random.seed(111)
 
 from keras.preprocessing.text import Tokenizer
@@ -19,14 +21,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MultiLabelBinarizer, LabelEncoder
 from sklearn.preprocessing import LabelEncoder
 
-from utils import *
-from arguments import parse_arguments
+from utils import pre_process, reverse_tag2poem, \
+    unique_tags, custom_train_test_split
+from parameters import Parameters
 
 class DataLoader(object):
     def __init__(self, data) -> None:
         super().__init__()
         self.data = data
-        self.args = parse_arguments()
+        self.params = Parameters
         self.hl_tags = ["love", "nature", "life", "romantic", "freedom", "culture", "suicide"]
     
     def load_data(self):
@@ -61,15 +64,15 @@ class DataLoader(object):
                 }
         
         # Pickle dataset for further usage
-        dataset_path = os.path.dirname(args.dataset_obj) + '/cleaned_poem_tags_dict.pkl'
+        dataset_path = os.path.dirname(self.params.dataset_obj) + '/cleaned_poem_tags_dict.pkl'
         with open(dataset_path, 'wb') as f:
             pickle.dump(self.poem_tags_dict, f)
         
     def get_unique_tags(self):
         """Get list of uniqe tags and save them in a file
         """
-        with open(self.args.out_dir+'/uniq_tags.txt', 'w') as f:
-            if args.high_level_tags:
+        with open(self.params.out_dir+'/uniq_tags.txt', 'w') as f:
+            if self.params.high_level_tags:
                 self.tag_freq = unique_tags(self.tags, self.hl_tags)
             else:
                 self.tag_freq = unique_tags(self.tags)
@@ -82,12 +85,12 @@ class DataLoader(object):
         self.poems = []
         self.labels = []
         self.stanza_len = []
-        with open(self.args.out_dir+'/poems.txt', 'w') as fp, open(self.args.out_dir+'/tags.txt', 'w') as ft:
+        with open(self.params.out_dir+'/poems.txt', 'w') as fp, open(self.params.out_dir+'/tags.txt', 'w') as ft:
             for id, tag_poem in self.poem_tags_dict.items():
                 poem = tag_poem['poem']
                 tags = tag_poem['tags']
                 stanza_len = tag_poem['stanza_len']
-                if args.high_level_tags:
+                if self.params.high_level_tags:
                     for i in self.hl_tags:
                         if i== tags:
                             proc_poem = pre_process(poem)
@@ -111,15 +114,17 @@ class DataLoader(object):
         """Create a tag to integer mapping.
         """
         self.tag2int = {tag: intid+1  for intid, tag in enumerate(list(self.tag_freq.keys()))}
-        with open(self.args.out_dir+'/tag2int.json', 'w') as fp:
+        with open(self.params.out_dir+'/tag2int.json', 'w') as fp:
             json.dump(self.tag2int, fp)
             
     def tokenize(self):
         """Tokenize all poems 
         """
         
+        # self.t_words = Tokenizer(oov_token="<UNK>")
         self.t_words = Tokenizer()
         self.t_words.fit_on_texts(self.poems)  
+        # pdb.set_trace()
         self.X = self.t_words.texts_to_sequences(self.poems)
 
     def build_vocabulary(self):
@@ -130,7 +135,7 @@ class DataLoader(object):
     def padding(self):
         """Padd varying length of poems
         """
-        self.X = pad_sequences(self.X, maxlen=self.args.max_seq_len, truncating='post')
+        self.X = pad_sequences(self.X, maxlen=self.params.max_seq_len, truncating='post')
         
         
     def one_hot_encoding(self):
@@ -158,36 +163,36 @@ class DataLoader(object):
 
         
     def save_train_test_split(self):
-        np.save(self.args.out_dir+'/X_train.npy', self.X_train)
-        np.save(self.args.out_dir+'/X_test.npy', self.X_test)
-        np.save(self.args.out_dir+'/y_train.npy', self.y_train)
-        np.save(self.args.out_dir+'/y_test.npy', self.y_test)
-        np.save(self.args.out_dir+'/X_validation.npy', self.X_validation)
-        np.save(self.args.out_dir+'/y_validation.npy', self.y_validation)
+        np.save(self.params.out_dir+'/X_train.npy', self.X_train)
+        np.save(self.params.out_dir+'/X_test.npy', self.X_test)
+        np.save(self.params.out_dir+'/y_train.npy', self.y_train)
+        np.save(self.params.out_dir+'/y_test.npy', self.y_test)
+        np.save(self.params.out_dir+'/X_validation.npy', self.X_validation)
+        np.save(self.params.out_dir+'/y_validation.npy', self.y_validation)
         
-        np.save(self.args.out_dir+'/seq_len_validation.npy', self.seq_len_validation)
-        np.save(self.args.out_dir+'/seq_len_train.npy', self.seq_len_train)
-        np.save(self.args.out_dir+'/seq_len_test.npy', self.seq_len_test)
+        np.save(self.params.out_dir+'/seq_len_validation.npy', self.seq_len_validation)
+        np.save(self.params.out_dir+'/seq_len_train.npy', self.seq_len_train)
+        np.save(self.params.out_dir+'/seq_len_test.npy', self.seq_len_test)
         
-        with open(self.args.out_dir+'/t_words.pkl', 'wb') as handle:
+        with open(self.params.out_dir+'/t_words.pkl', 'wb') as handle:
             pickle.dump(self.t_words, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        with open(self.args.out_dir+'/lb.pkl', 'wb') as handle:
+        with open(self.params.out_dir+'/lb.pkl', 'wb') as handle:
             pickle.dump(self.lb, handle, protocol=pickle.HIGHEST_PROTOCOL)
     
     def load_train_test_split(self):
-        self.X_train =          np.load(self.args.out_dir+'/X_train.npy', allow_pickle=True)
-        self.X_test =           np.load(self.args.out_dir+'/X_test.npy', allow_pickle=True)
-        self.y_train =          np.load(self.args.out_dir+'/y_train.npy', allow_pickle=True)
-        self.y_test =           np.load(self.args.out_dir+'/y_test.npy', allow_pickle=True)
-        self.X_validation =     np.load(self.args.out_dir+'/X_validation.npy', allow_pickle=True)
-        self.y_validation =     np.load(self.args.out_dir+'/y_validation.npy', allow_pickle=True)
+        self.X_train =          np.load(self.params.out_dir+'/X_train.npy', allow_pickle=True)
+        self.X_test =           np.load(self.params.out_dir+'/X_test.npy', allow_pickle=True)
+        self.y_train =          np.load(self.params.out_dir+'/y_train.npy', allow_pickle=True)
+        self.y_test =           np.load(self.params.out_dir+'/y_test.npy', allow_pickle=True)
+        self.X_validation =     np.load(self.params.out_dir+'/X_validation.npy', allow_pickle=True)
+        self.y_validation =     np.load(self.params.out_dir+'/y_validation.npy', allow_pickle=True)
         
-        self.seq_len_train =     np.load(self.args.out_dir+'/seq_len_train.npy', allow_pickle=True)
-        self.seq_len_test =     np.load(self.args.out_dir+'/seq_len_test.npy', allow_pickle=True)
-        self.seq_len_validation =     np.load(self.args.out_dir+'/seq_len_validation.npy', allow_pickle=True)
+        self.seq_len_train =     np.load(self.params.out_dir+'/seq_len_train.npy', allow_pickle=True)
+        self.seq_len_test =     np.load(self.params.out_dir+'/seq_len_test.npy', allow_pickle=True)
+        self.seq_len_validation =     np.load(self.params.out_dir+'/seq_len_validation.npy', allow_pickle=True)
         
-        with open(self.args.out_dir+'/t_words.pkl', 'rb') as fp:
+        with open(self.params.out_dir+'/t_words.pkl', 'rb') as fp:
             self.t_words    =       pickle.load(fp)
-        with open(self.args.out_dir+'/lb.pkl', 'rb') as fp:
+        with open(self.params.out_dir+'/lb.pkl', 'rb') as fp:
             self.lb    =       pickle.load(fp)
         
