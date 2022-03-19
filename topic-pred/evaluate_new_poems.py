@@ -193,9 +193,6 @@ def main():
         pickle.dump(zip_actual_pred_tags, handle, protocol=pickle.HIGHEST_PROTOCOL)
     
     
-    
-    
-    
 
 def parse_arguments():
     """ parse arguments """

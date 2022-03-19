@@ -79,9 +79,11 @@ Samples of generated poem can be found under `results`
 1. For top-k sampling
     - Avergae keyword usage across all 144 topics: 0.196
     - Avergae PPL score across all 144 topics: 15.672
+    - Avergae topic classifier score (topics predicted by a trained topic classifier system) across all 144 topics: 0.134
 2. For beam search
     - Avergae keyword usage across all 144 topics: 0.180
     - Avergae PPL score across all 144 topics: 126697.218
+    - Avergae topic classifier score (topics predicted by a trained topic classifier system) across all 144 topics: 0.164
 
 - An overview of randomly generated poems
 ```
