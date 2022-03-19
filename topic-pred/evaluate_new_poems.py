@@ -8,7 +8,9 @@
 # @Last Modified time: 2021-03-18 01:32:15
 
 """
-<Function of script>
+This script performs topic classification on the automatically 
+generated poems and saves the predicted topic for each poem in
+a pickled file.
 """
 
 import os
@@ -103,19 +105,16 @@ def load_tokenizer_model(args):
     with open(args.tok_fp, 'rb') as fp:
         t_words = pickle.load(fp)
         
-    
     # Load saved model
     model = CNN(t_words, Parameters)
     model.to(DEVICE)
     model.load_state_dict(torch.load(args.model_fp))
     model.eval()
-    
     return t_words, model
     
 def tokenize_data(t_words, all_poems):
     X = t_words.texts_to_sequences(all_poems)
     X = pad_sequences(X, maxlen=Parameters.max_seq_len, truncating='post')
-    
     return X
 
 def predict(X, model):
@@ -155,7 +154,7 @@ def main():
     # predicted_tags = predict(X, model)
     
     # zip_actual_pred_tags = list(map(list, zip(actual_tags, predicted_tags)))
-    # with open(Parameters.out_dir+'/gpt2-beam-poems-pred-tags.pkl', 'wb') as handle:
+    # with open(Parameters.out_dir+'/gpt2-topk-poems-pred-tags.pkl', 'wb') as handle:
     #     pickle.dump(zip_actual_pred_tags, handle, protocol=pickle.HIGHEST_PROTOCOL)
         
         

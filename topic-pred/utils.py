@@ -271,7 +271,7 @@ class Run:
         os.makedirs(params.model_dir, exist_ok=True)
         if params.save_model:
             # Save the best model
-            PATH = params.model_dir + "/bi-dir_lstm_" + str(epoch+1) +"_batch_size_" + str(params.batch_size) + ".pth"
+            PATH = params.model_dir + "/cnn_" + str(epoch+1) +"_batch_size_" + str(params.batch_size) + ".pth"
             torch.save(model.state_dict(), PATH)
         
         print("Best model saved as: ", PATH)

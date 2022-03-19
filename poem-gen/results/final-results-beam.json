@@ -1,578 +1,722 @@
 {
     "sleep": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 10.975014543533325
+        "avg_ppl_score": 10.975,
+        "avg_topic_clf_score": 0.1
     },
     "today": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 10.754685163497925
+        "avg_ppl_score": 10.7547,
+        "avg_topic_clf_score": 0.3
     },
     "justice": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 9.638536167144775
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 9.6385,
+        "avg_topic_clf_score": 0.0
     },
     "dream": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 10.256215667724609
+        "avg_ppl_score": 10.2562,
+        "avg_topic_clf_score": 0.0
     },
     "nature": {
-        "avg_kw_usage_score": 0.19999999999999998,
-        "avg_ppl_score": 9.672606086730957
+        "avg_kw_usage_score": 0.2,
+        "avg_ppl_score": 9.6726,
+        "avg_topic_clf_score": 0.2
     },
     "depression": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 8.003794813156128
+        "avg_ppl_score": 8.0038,
+        "avg_topic_clf_score": 0.2
     },
     "hope": {
-        "avg_kw_usage_score": 0.06000000000000001,
-        "avg_ppl_score": 43.696421241760255
+        "avg_kw_usage_score": 0.06,
+        "avg_ppl_score": 43.6964,
+        "avg_topic_clf_score": 0.3
     },
     "thanks": {
-        "avg_kw_usage_score": 0.21999999999999997,
-        "avg_ppl_score": 11.568850183486939
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 11.5689,
+        "avg_topic_clf_score": 0.6
     },
     "husband": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 9.292425227165221
+        "avg_ppl_score": 9.2924,
+        "avg_topic_clf_score": 0.1
     },
     "home": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 10.055680680274964
+        "avg_ppl_score": 10.0557,
+        "avg_topic_clf_score": 0.0
     },
     "beauty": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 18.348300457000732
+        "avg_ppl_score": 18.3483,
+        "avg_topic_clf_score": 0.1
     },
     "winter": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 12.274729681015014
+        "avg_ppl_score": 12.2747,
+        "avg_topic_clf_score": 0.5
     },
     "romantic": {
         "avg_kw_usage_score": 0.28,
-        "avg_ppl_score": 27.268097162246704
+        "avg_ppl_score": 27.2681,
+        "avg_topic_clf_score": 0.5
     },
     "heaven": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 14.277666139602662
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 14.2777,
+        "avg_topic_clf_score": 0.0
     },
     "father": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 6.384872245788574
+        "avg_ppl_score": 6.3849,
+        "avg_topic_clf_score": 0.7
     },
     "moon": {
         "avg_kw_usage_score": 0.28,
-        "avg_ppl_score": 14.772569704055787
+        "avg_ppl_score": 14.7726,
+        "avg_topic_clf_score": 0.2
     },
     "mirror": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 37.77834825515747
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 37.7783,
+        "avg_topic_clf_score": 0.9
     },
     "poem": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 20.359594440460206
+        "avg_ppl_score": 20.3596,
+        "avg_topic_clf_score": 0.0
     },
     "river": {
         "avg_kw_usage_score": 0.28,
-        "avg_ppl_score": 124.45444755554199
+        "avg_ppl_score": 124.4544,
+        "avg_topic_clf_score": 0.4
     },
     "faith": {
-        "avg_kw_usage_score": 0.06000000000000001,
-        "avg_ppl_score": 17.460869359970093
+        "avg_kw_usage_score": 0.06,
+        "avg_ppl_score": 17.4609,
+        "avg_topic_clf_score": 0.0
     },
     "music": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 60.372925424575804
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 60.3729,
+        "avg_topic_clf_score": 0.2
     },
     "food": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 146.15487823486328
+        "avg_ppl_score": 146.1549,
+        "avg_topic_clf_score": 0.6
     },
     "rain": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 10.753819513320924
+        "avg_ppl_score": 10.7538,
+        "avg_topic_clf_score": 0.2
     },
     "freedom": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 10.322127389907838
+        "avg_ppl_score": 10.3221,
+        "avg_topic_clf_score": 1.0
     },
     "remember": {
-        "avg_kw_usage_score": 0.18000000000000002,
-        "avg_ppl_score": 6.411038780212403
+        "avg_kw_usage_score": 0.18,
+        "avg_ppl_score": 6.411,
+        "avg_topic_clf_score": 0.1
     },
     "dance": {
-        "avg_kw_usage_score": 0.18000000000000002,
-        "avg_ppl_score": 10.945313787460327
+        "avg_kw_usage_score": 0.18,
+        "avg_ppl_score": 10.9453,
+        "avg_topic_clf_score": 0.5
     },
     "animal": {
-        "avg_kw_usage_score": 0.12000000000000002,
-        "avg_ppl_score": 186856.93062548636
+        "avg_kw_usage_score": 0.12,
+        "avg_ppl_score": 186856.9306,
+        "avg_topic_clf_score": 0.1
     },
     "despair": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 9.539767599105835
+        "avg_ppl_score": 9.5398,
+        "avg_topic_clf_score": 0.1
     },
     "truth": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 12.556101894378662
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 12.5561,
+        "avg_topic_clf_score": 0.0
     },
     "school": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 51.55807638168335
+        "avg_ppl_score": 51.5581,
+        "avg_topic_clf_score": 0.3
     },
     "culture": {
-        "avg_kw_usage_score": 0.15999999999999998,
-        "avg_ppl_score": 11.83879828453064
+        "avg_kw_usage_score": 0.16,
+        "avg_ppl_score": 11.8388,
+        "avg_topic_clf_score": 0.5
     },
     "laughter": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 15.271307277679444
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 15.2713,
+        "avg_topic_clf_score": 0.7
     },
     "green": {
-        "avg_kw_usage_score": 0.19999999999999998,
-        "avg_ppl_score": 12.736462736129761
+        "avg_kw_usage_score": 0.2,
+        "avg_ppl_score": 12.7365,
+        "avg_topic_clf_score": 0.2
     },
     "sun": {
         "avg_kw_usage_score": 0.26,
-        "avg_ppl_score": 31.715956115722655
+        "avg_ppl_score": 31.716,
+        "avg_topic_clf_score": 0.3
     },
     "life": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 21.419079065322876
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 21.4191,
+        "avg_topic_clf_score": 0.3
     },
     "running": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 18.7634850025177
+        "avg_ppl_score": 18.7635,
+        "avg_topic_clf_score": 0.5
     },
     "friend": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 31.48494906425476
+        "avg_ppl_score": 31.4849,
+        "avg_topic_clf_score": 0.1
     },
     "son": {
         "avg_kw_usage_score": 0.28,
-        "avg_ppl_score": 7.6505455493927
+        "avg_ppl_score": 7.6505,
+        "avg_topic_clf_score": 0.2
     },
     "kiss": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 10.006290006637574
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 10.0063,
+        "avg_topic_clf_score": 0.6
     },
     "angel": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 44.33252635002136
+        "avg_ppl_score": 44.3325,
+        "avg_topic_clf_score": 0.2
     },
     "funny": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 12.08883581161499
+        "avg_ppl_score": 12.0888,
+        "avg_topic_clf_score": 0.2
     },
     "rose": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 21.23123469352722
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 21.2312,
+        "avg_topic_clf_score": 0.4
     },
     "football": {
-        "avg_kw_usage_score": 0.19999999999999998,
-        "avg_ppl_score": 24.34867889881134
+        "avg_kw_usage_score": 0.2,
+        "avg_ppl_score": 24.3487,
+        "avg_topic_clf_score": 0.9
     },
     "poverty": {
-        "avg_kw_usage_score": 0.27999999999999997,
-        "avg_ppl_score": 12.144559335708617
+        "avg_kw_usage_score": 0.28,
+        "avg_ppl_score": 12.1446,
+        "avg_topic_clf_score": 0.5
     },
     "world": {
-        "avg_kw_usage_score": 0.24000000000000005,
-        "avg_ppl_score": 11.707595443725586
+        "avg_kw_usage_score": 0.24,
+        "avg_ppl_score": 11.7076,
+        "avg_topic_clf_score": 0.3
     },
     "greed": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 10.622507166862487
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 10.6225,
+        "avg_topic_clf_score": 0.5
     },
     "believe": {
-        "avg_kw_usage_score": 0.15999999999999998,
-        "avg_ppl_score": 27.717772340774538
+        "avg_kw_usage_score": 0.16,
+        "avg_ppl_score": 27.7178,
+        "avg_topic_clf_score": 0.4
     },
     "ocean": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 37.34999587535858
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 37.35,
+        "avg_topic_clf_score": 0.5
     },
     "passion": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 11.79867935180664
+        "avg_ppl_score": 11.7987,
+        "avg_topic_clf_score": 0.1
     },
     "car": {
-        "avg_kw_usage_score": 0.24000000000000005,
-        "avg_ppl_score": 1496.8536827087403
+        "avg_kw_usage_score": 0.24,
+        "avg_ppl_score": 1496.8537,
+        "avg_topic_clf_score": 0.2
     },
     "suicide": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 12.469531106948853
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 12.4695,
+        "avg_topic_clf_score": 0.2
     },
     "paris": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 11.132094931602477
+        "avg_ppl_score": 11.1321,
+        "avg_topic_clf_score": 0.2
     },
     "city": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 8.449074530601502
+        "avg_ppl_score": 8.4491,
+        "avg_topic_clf_score": 0.2
     },
     "summer": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 10.973679208755494
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 10.9737,
+        "avg_topic_clf_score": 0.2
     },
     "sorrow": {
-        "avg_kw_usage_score": 0.27999999999999997,
-        "avg_ppl_score": 15.97045578956604
+        "avg_kw_usage_score": 0.28,
+        "avg_ppl_score": 15.9705,
+        "avg_topic_clf_score": 0.0
     },
     "sky": {
         "avg_kw_usage_score": 0.28,
-        "avg_ppl_score": 10.74132227897644
+        "avg_ppl_score": 10.7413,
+        "avg_topic_clf_score": 0.6
     },
     "happy": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 11.959668922424317
+        "avg_ppl_score": 11.9597,
+        "avg_topic_clf_score": 0.2
     },
     "america": {
-        "avg_kw_usage_score": 0.12000000000000002,
-        "avg_ppl_score": 14.006594228744508
+        "avg_kw_usage_score": 0.12,
+        "avg_ppl_score": 14.0066,
+        "avg_topic_clf_score": 0.0
     },
     "joy": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 9.35221037864685
+        "avg_ppl_score": 9.3522,
+        "avg_topic_clf_score": 0.0
     },
     "murder": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 138.4800889492035
+        "avg_ppl_score": 138.4801,
+        "avg_topic_clf_score": 0.4
     },
     "birth": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 10.220647621154786
+        "avg_ppl_score": 10.2206,
+        "avg_topic_clf_score": 0.0
     },
     "dark": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 17.174413394927978
+        "avg_ppl_score": 17.1744,
+        "avg_topic_clf_score": 0.1
     },
     "god": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 9.089749956130982
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 9.0897,
+        "avg_topic_clf_score": 0.0
     },
     "childhood": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 5.640926623344422
+        "avg_ppl_score": 5.6409,
+        "avg_topic_clf_score": 0.0
     },
     "fire": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 16.90539155006409
+        "avg_ppl_score": 16.9054,
+        "avg_topic_clf_score": 0.5
     },
     "hair": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 7.53739562034607
+        "avg_ppl_score": 7.5374,
+        "avg_topic_clf_score": 0.6
     },
     "warning": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 10.137443923950196
+        "avg_ppl_score": 10.1374,
+        "avg_topic_clf_score": 0.2
     },
     "wedding": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 7.8153056621551515
+        "avg_ppl_score": 7.8153,
+        "avg_topic_clf_score": 0.0
     },
     "song": {
         "avg_kw_usage_score": 0.32,
-        "avg_ppl_score": 31.857672500610352
+        "avg_ppl_score": 31.8577,
+        "avg_topic_clf_score": 0.1
     },
     "weather": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 18036800.87124429
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 18036800.8712,
+        "avg_topic_clf_score": 0.3
     },
     "butterfly": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 10.486880493164062
+        "avg_ppl_score": 10.4869,
+        "avg_topic_clf_score": 0.3
     },
     "money": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 1373.1885038375854
+        "avg_ppl_score": 1373.1885,
+        "avg_topic_clf_score": 0.8
     },
     "future": {
         "avg_kw_usage_score": 0.2,
-        "avg_ppl_score": 7.293850088119507
+        "avg_ppl_score": 7.2939,
+        "avg_topic_clf_score": 0.3
     },
     "racism": {
-        "avg_kw_usage_score": 0.12000000000000002,
-        "avg_ppl_score": 13.22052354812622
+        "avg_kw_usage_score": 0.12,
+        "avg_ppl_score": 13.2205,
+        "avg_topic_clf_score": 0.5
     },
     "chicago": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 9.499141025543214
+        "avg_ppl_score": 9.4991,
+        "avg_topic_clf_score": 0.4
     },
     "house": {
-        "avg_kw_usage_score": 0.19999999999999998,
-        "avg_ppl_score": 12.264988470077515
+        "avg_kw_usage_score": 0.2,
+        "avg_ppl_score": 12.265,
+        "avg_topic_clf_score": 0.0
     },
     "sister": {
-        "avg_kw_usage_score": 0.06000000000000001,
-        "avg_ppl_score": 7.435095310211182
+        "avg_kw_usage_score": 0.06,
+        "avg_ppl_score": 7.4351,
+        "avg_topic_clf_score": 0.4
     },
     "success": {
         "avg_kw_usage_score": 0.2,
-        "avg_ppl_score": 17.381004190444948
+        "avg_ppl_score": 17.381,
+        "avg_topic_clf_score": 0.7
     },
     "courage": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 99.73186688423156
+        "avg_ppl_score": 99.7319,
+        "avg_topic_clf_score": 0.9
     },
     "baby": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 8.627532339096069
+        "avg_ppl_score": 8.6275,
+        "avg_topic_clf_score": 0.3
     },
     "lust": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 8.110653018951416
+        "avg_ppl_score": 8.1107,
+        "avg_topic_clf_score": 0.3
     },
     "sometimes": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 6.447743844985962
+        "avg_ppl_score": 6.4477,
+        "avg_topic_clf_score": 0.6
     },
     "swimming": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 88.34208588600158
+        "avg_ppl_score": 88.3421,
+        "avg_topic_clf_score": 0.8
     },
     "trust": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 8.953154230117798
+        "avg_ppl_score": 8.9532,
+        "avg_topic_clf_score": 0.8
     },
     "romance": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 20.961642026901245
+        "avg_ppl_score": 20.9616,
+        "avg_topic_clf_score": 0.0
     },
     "girl": {
         "avg_kw_usage_score": 0.26,
-        "avg_ppl_score": 8.551646900177001
+        "avg_ppl_score": 8.5516,
+        "avg_topic_clf_score": 0.4
     },
     "sick": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 18.82907900810242
+        "avg_ppl_score": 18.8291,
+        "avg_topic_clf_score": 0.3
     },
     "beautiful": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 7.260631847381592
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 7.2606,
+        "avg_topic_clf_score": 0.4
     },
     "power": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 20.999188399314882
+        "avg_ppl_score": 20.9992,
+        "avg_topic_clf_score": 0.1
     },
     "january": {
-        "avg_kw_usage_score": 0.21999999999999997,
-        "avg_ppl_score": 8.58948769569397
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 8.5895,
+        "avg_topic_clf_score": 0.0
     },
     "crazy": {
         "avg_kw_usage_score": 0.3,
-        "avg_ppl_score": 10.972079038619995
+        "avg_ppl_score": 10.9721,
+        "avg_topic_clf_score": 0.3
     },
     "star": {
         "avg_kw_usage_score": 0.26,
-        "avg_ppl_score": 9.641720867156982
+        "avg_ppl_score": 9.6417,
+        "avg_topic_clf_score": 0.1
     },
     "spring": {
         "avg_kw_usage_score": 0.2,
-        "avg_ppl_score": 22.848364639282227
+        "avg_ppl_score": 22.8484,
+        "avg_topic_clf_score": 0.1
     },
     "travel": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 68.76170043945312
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 68.7617,
+        "avg_topic_clf_score": 0.0
     },
     "identity": {
         "avg_kw_usage_score": 0.34,
-        "avg_ppl_score": 14.249034929275513
+        "avg_ppl_score": 14.249,
+        "avg_topic_clf_score": 0.4
     },
     "war": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 7.966126084327698
+        "avg_ppl_score": 7.9661,
+        "avg_topic_clf_score": 0.3
     },
     "june": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 28.565036582946778
+        "avg_ppl_score": 28.565,
+        "avg_topic_clf_score": 0.1
     },
     "lonely": {
         "avg_kw_usage_score": 0.32,
-        "avg_ppl_score": 11.482115459442138
+        "avg_ppl_score": 11.4821,
+        "avg_topic_clf_score": 0.1
     },
     "change": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 8.396011400222779
+        "avg_ppl_score": 8.396,
+        "avg_topic_clf_score": 0.2
     },
     "pink": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 15.810637426376342
+        "avg_ppl_score": 15.8106,
+        "avg_topic_clf_score": 0.4
     },
     "time": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 27.079328632354738
+        "avg_ppl_score": 27.0793,
+        "avg_topic_clf_score": 0.0
     },
     "night": {
         "avg_kw_usage_score": 0.24,
-        "avg_ppl_score": 10.902167797088623
+        "avg_ppl_score": 10.9022,
+        "avg_topic_clf_score": 0.4
     },
     "mother": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 8.341265439987183
+        "avg_ppl_score": 8.3413,
+        "avg_topic_clf_score": 0.2
     },
     "graduation": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 7.071971368789673
+        "avg_ppl_score": 7.072,
+        "avg_topic_clf_score": 0.7
     },
     "funeral": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 8.42322130203247
+        "avg_ppl_score": 8.4232,
+        "avg_topic_clf_score": 0.1
     },
     "red": {
-        "avg_kw_usage_score": 0.24000000000000005,
-        "avg_ppl_score": 9.10723581314087
+        "avg_kw_usage_score": 0.24,
+        "avg_ppl_score": 9.1072,
+        "avg_topic_clf_score": 0.1
     },
     "hunting": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 24.809426832199097
+        "avg_ppl_score": 24.8094,
+        "avg_topic_clf_score": 0.0
     },
     "memory": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 6.899603462219238
+        "avg_ppl_score": 6.8996,
+        "avg_topic_clf_score": 0.0
     },
     "work": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 9754.670304489136
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 9754.6703,
+        "avg_topic_clf_score": 0.3
     },
     "anger": {
-        "avg_kw_usage_score": 0.19999999999999998,
-        "avg_ppl_score": 29.893126058578492
+        "avg_kw_usage_score": 0.2,
+        "avg_ppl_score": 29.8931,
+        "avg_topic_clf_score": 0.5
     },
     "brother": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 12.748235511779786
+        "avg_ppl_score": 12.7482,
+        "avg_topic_clf_score": 0.3
     },
     "carpe diem": {
-        "avg_kw_usage_score": 0.13999999999999999,
-        "avg_ppl_score": 19.234864902496337
+        "avg_kw_usage_score": 0.14,
+        "avg_ppl_score": 19.2349,
+        "avg_topic_clf_score": 0.5
     },
     "fear": {
         "avg_kw_usage_score": 0.28,
-        "avg_ppl_score": 21.959701013565063
+        "avg_ppl_score": 21.9597,
+        "avg_topic_clf_score": 0.4
     },
     "happiness": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 24.89964108467102
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 24.8996,
+        "avg_topic_clf_score": 0.4
     },
     "family": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 8.397966861724854
+        "avg_ppl_score": 8.398,
+        "avg_topic_clf_score": 0.4
     },
     "rainbow": {
-        "avg_kw_usage_score": 0.12000000000000002,
-        "avg_ppl_score": 27.204495763778688
+        "avg_kw_usage_score": 0.12,
+        "avg_ppl_score": 27.2045,
+        "avg_topic_clf_score": 0.4
     },
     "innocence": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 10.634166431427001
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 10.6342,
+        "avg_topic_clf_score": 0.3
     },
     "hate": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 8.718699407577514
+        "avg_ppl_score": 8.7187,
+        "avg_topic_clf_score": 0.4
     },
     "respect": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 11.992708492279053
+        "avg_ppl_score": 11.9927,
+        "avg_topic_clf_score": 0.6
     },
     "snake": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 12.672465372085572
+        "avg_ppl_score": 12.6725,
+        "avg_topic_clf_score": 0.3
     },
     "silver": {
         "avg_kw_usage_score": 0.32,
-        "avg_ppl_score": 14.329840493202209
+        "avg_ppl_score": 14.3298,
+        "avg_topic_clf_score": 0.2
     },
     "sympathy": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 14.820923542976379
+        "avg_ppl_score": 14.8209,
+        "avg_topic_clf_score": 0.0
     },
     "hero": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 6.423503518104553
+        "avg_ppl_score": 6.4235,
+        "avg_topic_clf_score": 0.3
     },
     "destiny": {
-        "avg_kw_usage_score": 0.15999999999999998,
-        "avg_ppl_score": 9.126831769943237
+        "avg_kw_usage_score": 0.16,
+        "avg_ppl_score": 9.1268,
+        "avg_topic_clf_score": 0.3
     },
     "love": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 11.4232768535614
+        "avg_ppl_score": 11.4233,
+        "avg_topic_clf_score": 0.2
     },
     "teacher": {
         "avg_kw_usage_score": 0.26,
-        "avg_ppl_score": 27.141662073135375
+        "avg_ppl_score": 27.1417,
+        "avg_topic_clf_score": 0.4
     },
     "soldier": {
         "avg_kw_usage_score": 0.12,
-        "avg_ppl_score": 5288.021122264862
+        "avg_ppl_score": 5288.0211,
+        "avg_topic_clf_score": 0.0
     },
     "frog": {
-        "avg_kw_usage_score": 0.30000000000000004,
-        "avg_ppl_score": 14.56600456237793
+        "avg_kw_usage_score": 0.3,
+        "avg_ppl_score": 14.566,
+        "avg_topic_clf_score": 0.5
     },
     "alone": {
         "avg_kw_usage_score": 0.26,
-        "avg_ppl_score": 9.125687074661254
+        "avg_ppl_score": 9.1257,
+        "avg_topic_clf_score": 0.2
     },
     "marriage": {
         "avg_kw_usage_score": 0.3,
-        "avg_ppl_score": 9.17952527999878
+        "avg_ppl_score": 9.1795,
+        "avg_topic_clf_score": 0.0
     },
     "together": {
-        "avg_kw_usage_score": 0.15999999999999998,
-        "avg_ppl_score": 9.710873937606811
+        "avg_kw_usage_score": 0.16,
+        "avg_ppl_score": 9.7109,
+        "avg_topic_clf_score": 0.5
     },
     "evil": {
-        "avg_kw_usage_score": 0.30000000000000004,
-        "avg_ppl_score": 91.26530928611756
+        "avg_kw_usage_score": 0.3,
+        "avg_ppl_score": 91.2653,
+        "avg_topic_clf_score": 0.5
     },
     "peace": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 9.653425598144532
+        "avg_ppl_score": 9.6534,
+        "avg_topic_clf_score": 0.1
     },
     "children": {
         "avg_kw_usage_score": 0.14,
-        "avg_ppl_score": 11.4651029586792
+        "avg_ppl_score": 11.4651,
+        "avg_topic_clf_score": 0.0
     },
     "death": {
-        "avg_kw_usage_score": 0.25999999999999995,
-        "avg_ppl_score": 18.91901707649231
+        "avg_kw_usage_score": 0.26,
+        "avg_ppl_score": 18.919,
+        "avg_topic_clf_score": 0.1
     },
     "christmas": {
         "avg_kw_usage_score": 0.08,
-        "avg_ppl_score": 11.29098949432373
+        "avg_ppl_score": 11.291,
+        "avg_topic_clf_score": 0.1
     },
     "daughter": {
         "avg_kw_usage_score": 0.1,
-        "avg_ppl_score": 8.032437610626221
+        "avg_ppl_score": 8.0324,
+        "avg_topic_clf_score": 0.1
     },
     "beach": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 31.63865246772766
+        "avg_ppl_score": 31.6387,
+        "avg_topic_clf_score": 0.2
     },
     "lost": {
-        "avg_kw_usage_score": 0.21999999999999997,
-        "avg_ppl_score": 11.883756256103515
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 11.8838,
+        "avg_topic_clf_score": 0.2
     },
     "loss": {
-        "avg_kw_usage_score": 0.22000000000000003,
-        "avg_ppl_score": 12.763160991668702
+        "avg_kw_usage_score": 0.22,
+        "avg_ppl_score": 12.7632,
+        "avg_topic_clf_score": 0.2
     },
     "water": {
         "avg_kw_usage_score": 0.16,
-        "avg_ppl_score": 91.02533655166626
+        "avg_ppl_score": 91.0253,
+        "avg_topic_clf_score": 0.5
     },
     "cinderella": {
-        "avg_kw_usage_score": 0.24000000000000005,
-        "avg_ppl_score": 9.033562517166137
+        "avg_kw_usage_score": 0.24,
+        "avg_ppl_score": 9.0336,
+        "avg_topic_clf_score": 0.5
     },
     "sea": {
         "avg_kw_usage_score": 0.18,
-        "avg_ppl_score": 33.048902320861814
+        "avg_ppl_score": 33.0489,
+        "avg_topic_clf_score": 0.0
     },
     "poetry": {
         "avg_kw_usage_score": 0.2,
-        "avg_ppl_score": 10.233452224731446
+        "avg_ppl_score": 10.2335,
+        "avg_topic_clf_score": 0.1
     }
 }

@@ -4,6 +4,14 @@
 # @Author: Sangeet Sagar
 # @Date:  Sun Jan 16 11:30:35 AM CET 2022
 
+"""
+Given predicted topics from topic classifier system and 
+ppl scores computed on each generated poem, this script computes 
+avg keyword usage, mean ppl across all poems and topic-classification
+or topic relevance score.
+"""
+
+
 import os
 import sys
 import argparse
@@ -22,6 +30,37 @@ def keywords_usage(kws, poem):
             score_arr[id] = 1
     score = np.mean(score_arr)
     return score
+
+def evaluate_enc_dec_poems(args):
+    """Compute topic classifier score on enc-dec generated poems"""
+    with open(args.json_data) as json_file:
+        data = json.load(json_file)
+    
+    with open(args.pred_tags_pkl, 'rb') as fp:
+        # Tuple of (actual_tags, greedy_predicted_tags, ktop_predicted_tags)
+        pred_tags = pickle.load(fp)
+    
+    # pdb.set_trace()
+    greddy_topic_clf_score = 0
+    ktop_topic_clf_score = 0
+    for idx, (example_id, line) in enumerate(data.items()):
+        actual_tag = line['topic']
+        greedy_poem_pred_topic = line['greedy_poem_pred_topic']
+        ktop_poem_pred_topic = line['ktop_poem_pred_topic']
+        
+        # perform a sanity check
+        if actual_tag == pred_tags[idx][0]: # this must be true, otherwise there is some error
+            if actual_tag == pred_tags[idx][1]:
+                greddy_topic_clf_score += 1
+            if actual_tag == pred_tags[idx][2]:
+                ktop_topic_clf_score += 1
+        else:
+            print("ERROR: Actual tag from ", str(args.json_data), " and ",\
+                args.pred_tags_pkl, " differ.")
+    # pdb.set_trace()
+    print("Avg topic relevance score (greddy): %.3f" % (greddy_topic_clf_score/len(pred_tags)))
+    print("Avg topic relevance score (topk): %.3f" % (ktop_topic_clf_score/len(pred_tags)))
+    
     
 
 def load_data(args):
@@ -51,7 +90,6 @@ def load_data(args):
             if actual_tag == pred_tags[iter][0]: # Sanity check, match found
                 if pred_tags[iter][-1] == actual_tag:
                     topic_clf_score += 1
-                # iter += 1 # increase the count only when a perfect match is found.
                     
             else:
                 pdb.set_trace()
@@ -65,7 +103,7 @@ def load_data(args):
             "avg_topic_clf_score": float("{:.3f}".format(topic_clf_score/ len(line)))   # avg over 10 poems
         }
     with open('poem-gen/results/final-results-topk.json', 'w') as fp:
-            json.dump(aku_ppl_score, fp)
+            json.dump(aku_ppl_score, fp,  ensure_ascii=False, indent=4)
     
     
     net_score = np.zeros((len(aku_ppl_score),3))
@@ -84,6 +122,7 @@ def main():
     """ main method """
     args = parse_arguments()
     load_data(args)
+    # evaluate_enc_dec_poems(args)
 
 def parse_arguments():
     """ parse arguments """
