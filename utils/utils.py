@@ -116,8 +116,19 @@ def plot_ppl(train_losses,valid_losses):
     plt.plot(range(len(valid_losses)), val_ppl, label="valid")
     plt.legend()
     plt.xlabel("Epoch")
-    plt.ylabel('Loss')
+    plt.ylabel('PPL')
     plt.grid(True)
     plt.show()
 
-
+def reformat_poem(text):
+    '''prints a poem with 4 words per line'''
+    out = []
+    line=[]
+    for w in text:
+        if len(line) < 5:
+            line.append(w)
+        else:
+            out.append(' '.join(line))
+            line=[]
+    for l in out:
+        print(l)

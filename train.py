@@ -74,7 +74,7 @@ if __name__ == "__main__":
     PoemGenerator = PoemLSTM(hidden_size, vocab_size, sent_embedding_dim, topic_embedding_dim, topic_vocab_size, topic_hidden_size)
 
     # Set Hyperparameter Values
-    NUM_EPOCHS = 30
+    NUM_EPOCHS = 17
     LEARNING_RATE = 0.001
     OPTIMIZER = optim.Adam
     LOSS_FUNCTION = nn.functional.cross_entropy
