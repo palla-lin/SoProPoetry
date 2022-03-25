@@ -50,19 +50,22 @@ def spec_chars(path):
     return chars
 
 
-def prep_poem(poemstring, special_chars):
+def prep_poem(string, special_chars):
     max_lines = 5  # 4 line poem
     res = []
 
-    clean_poem = ""
+    short_poem = string.lower().split('\n')[:max_lines]
 
-    for char in poemstring:
-        if char not in special_chars:
-            clean_poem += char
+    poem_split = sum([i.split() for i in short_poem], [])
 
-    short_poem = clean_poem.lower().split('\n')[:max_lines]
+    for word in poem_split:
+        clean_token = ""
+        for char in word:
+            if char not in special_chars:
+                clean_token += char
+        res.append(clean_token)
 
-    res = sum([i.split() for i in short_poem], ['<BOP>'])
+    res.insert(0, '<BOP>')
     res.append('<EOP>')
 
     max_len = 50
