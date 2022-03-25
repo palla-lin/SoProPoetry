@@ -1,57 +1,48 @@
 import torch
 import torch.nn as nn
 
-class PoemLSTM(nn.Module):
-    """
-    """
 
-    def __init__(self, hidden_size, vocab_size, embedding_dim=200, n_layers=1):
+class PoemLSTM(nn.Module):
+
+    def __init__(self, hidden_size, vocab_size, sent_embedding_dim, topic_embedding_dim, topic_vocab_size, topic_hidden_size, n_layers=1):
         super(PoemLSTM, self).__init__()
 
-        self.hidden_size = hidden_size
-        self.n_layers = n_layers
-
-        self.vocab_size = vocab_size
-        self.embedding_dim = embedding_dim
-
-        topic_embedding_dim = 100
         # embedding for topic
-        self.embed_topic = nn.Embedding(vocab_size, topic_embedding_dim)  # [41634, 100]
+        self.embed_topic = nn.Embedding(topic_vocab_size, topic_embedding_dim)
 
         # embedding for sent
-        self.embed_sent = nn.Embedding(vocab_size, embedding_dim)  # [41634, 200]
+        self.embed_sent = nn.Embedding(vocab_size, sent_embedding_dim)
 
-        # concatenate
-        self.lstm = nn.LSTM(topic_embedding_dim + embedding_dim, hidden_size)
-        self.fc = nn.Linear(hidden_size, vocab_size)  # [100,41634]
+        # topic LSTM
+        self.topic_lstm = nn.LSTM(topic_embedding_dim, topic_hidden_size)
+
+        # sent LSTM
+        self.sent_lstm = nn.LSTM(sent_embedding_dim + topic_hidden_size, hidden_size)
+
+        self.fc = nn.Linear(hidden_size, vocab_size)
 
     def forward(self, topic, inp):
-        # topic embedding matrix
+
+        # topic embedding
         topic_emb = self.embed_topic(topic)
+        top_lstm_out, hn_cn_top = self.topic_lstm(topic_emb.view(len(topic), 1, topic_emb.shape[1]))
 
-        # sent embedding for words
-        emb = self.embed_sent(inp)
-        #         print('emb out',emb.shape)
+        # sent embedding
+        sent_emb = self.embed_sent(inp)
+        reshape1 = top_lstm_out.view(top_lstm_out.shape[0], top_lstm_out.shape[2])
 
-        # concatinate input sentence and topic
-        input_combined = torch.cat((emb, topic_emb), 1)
+        # concatenate input sentence and topic
+        input_combined = torch.cat((sent_emb, reshape1), 1)
         #         print('shape',input_combined.shape)
 
-        # prepare Embedding output for LSTM layer
-        lstm_in = input_combined.view(input_combined.shape[0], 1,
-                                      input_combined.shape[1])  # lstm_in = emb.view(1, 1, -1)
-        #         print('lstm in',lstm_in.shape,'in dim',lstm_in.dim())
+        # pass to word LSTM layer
+        sent_lstm_output, sent_Hn_Cn = self.sent_lstm(input_combined.view(len(inp), 1, input_combined.shape[1]))
 
-        # feed to LSTM layer
-        lstm_out, hn_cn = self.lstm(lstm_in)
-        #         print('lstm_out shape',lstm_out.size())
+        # rehsape to pass to Linear layer
+        lstm_output = sent_lstm_output.view(sent_lstm_output.shape[0],
+                                            sent_lstm_output.shape[2])
 
-        # re-shape LSTM output, prepare for Linear layer
-        fc_in = lstm_out.view(len(input_combined), -1)
-        #         print('fc in', fc_in.size())
+        # project the LSTM to linear
+        fc_out = self.fc(lstm_output)
 
-        # feed to Linear
-        fc_out = self.fc(fc_in)
-        #         print('fc_out',fc_out.shape)
-
-        return fc_out, hn_cn
+        return fc_out

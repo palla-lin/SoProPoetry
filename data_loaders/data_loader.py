@@ -3,18 +3,14 @@ from utils import *
 from dataset import *
 
 
-def collate_fn(batch, test=False):
+def collate_fn(batch):
     for instance in batch:
         inp = instance["input"]
         targ = instance["target"]
         topic = instance["topic"]
+        tensors = [topic.long(), inp, targ]
+        tensors = pad_sequence(tensors, batch_first=True, padding_value=0)
 
-        if test:
-            tensors = (topic.long(), inp)
-            tensors = pad_sequence(tensors, batch_first=True, padding_value=0)
-        else:
-            tensors = [topic.long(), inp, targ]
-            tensors = pad_sequence(tensors, batch_first=True, padding_value=0)
     return tensors
 
 
